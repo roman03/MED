@@ -25,15 +25,27 @@ public class HelloController {
 		return model;
 	}
 
-	@RequestMapping(value = { "", "/", "welcome" }, method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-		return "welcome";
-	}
-
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String printIndex(ModelMap model) {
-		model.addAttribute("message",
-				"Welcome to your first Spring Security Example");
+	public String printWelcome(ModelMap model) {
 		return "index";
 	}
+
+	@RequestMapping(value = "/newPatient", method = RequestMethod.GET)
+	public String add(ModelMap model) {
+		model.addAttribute("message",
+				"Welcome to your first Spring Security Example");
+		return "Welcome to your first Spring Security Example";
+	}
+
+	@RequestMapping(value = "/addNewPatient", method = RequestMethod.GET)
+	public ModelAndView addNewPatient(ModelMap model) {
+		ModelAndView modelAndView = new ModelAndView("addNewPatient");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addNew(ModelMap model) {
+		return "stupid";
+	}
+
 }

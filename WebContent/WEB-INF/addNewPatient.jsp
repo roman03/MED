@@ -1,4 +1,21 @@
-<script src="resources/jquery-2.1.1.min.js"></script>
+<%@page session="true"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%@ include file="includes.jsp"%>
+
+<script src="resources/moment.js"></script>
+<script src="resources/bootstrap.js"></script>
+<script  src="resources/bootstrap.min.js"></script>
+<script  src="resources/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="resources/bootstrap-datetimepicker.min.css" />
+
+</head>
+<body>
+
+	<div id="header" style="width: screen.width;">
+		<%@ include file="header.jsp"%>
+	</div>
 <form class="form-horizontal" action="add">
 	<fieldset>
 
@@ -95,12 +112,12 @@
 					class="glyphicon glyphicon-calendar "></span> </span>
 			</div>
 		</div>
-		<script type="text/javascript">
+		<script>
 			$(function() {
 				$('#dateArriveId').datetimepicker(
 						{
 							defaultDate : "11/1/2013",
-							disabledDates : [ moment("12/25/2013"),
+							disabledDates : [("12/25/2013"),
 									new Date(2013, 11 - 1, 21),
 									"11/22/2013 00:53" ]
 						});
@@ -116,12 +133,12 @@
 					class="glyphicon glyphicon-calendar "></span> </span>
 			</div>
 		</div>
-		<script type="text/javascript">
+		<script>
 			$(function() {
 				$('#dateEndTreatmentId').datetimepicker(
 						{
 							defaultDate : "",
-							disabledDates : [ moment("12/25/2013"),
+							disabledDates : [("12/25/2013"),
 									new Date(2013, 11 - 1, 21),
 									"11/22/2013 00:53" ]
 						});
@@ -138,3 +155,10 @@
 
 	</fieldset>
 </form>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="resources/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+</body>
+</html>
