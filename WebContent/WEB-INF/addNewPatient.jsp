@@ -155,6 +155,34 @@
 
 		</fieldset>
 	</div>
+	<script>
+$("#submitId").click(function(){
+	var sexx;
+	if($("#sexId-0") === "") {
+		sexx = $("#sexId-1").val()
+	} else {
+		sexx = $("#sexId-0").val()
+	}
+	var ob = {},
+		namee = $("#nameId").val(),
+		firstName = $("#firstNameId").val(),
+		lastName = $("#lastNameId").val();
+		age = $("#ageId").val(),
+		sex = sexx,
+		address = $("#adressId").val(),
+		work = $("#aboutId").val(),
+		diagnosis = $("#diagnosisId").val(),
+		dataArrived = $("#dateArrivedId").val(),
+		endTreatment = $("#dateEndTreatmentId").val();
+
+	ob.url = "add";
+	ob.type = "POST";
+	ob.data = {username: name, firstname: firstName, lastname: lastName, age: age, sex: sex, address: address, 
+				workPlace: work, diagnosis: diagnosis, dataArrived: dataArrived, endTreatment: endTreatment};	
+	$.ajax(ob);
+});
+
+</script>
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
