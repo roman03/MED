@@ -1,8 +1,13 @@
 package com.tutorails.dao;
 
-import com.tutorials.domain.Patient;
+import java.util.List;
 
+import com.tutorials.domain.Patient;
 
 public interface DataDao {
 	public int insertRow(Patient patient);
+
+	public List<Patient> getRecentPatinets(Integer[] interval);
+
+	public Integer getLastId();
 }

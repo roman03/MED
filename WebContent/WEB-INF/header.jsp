@@ -8,7 +8,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="addNewPatient">Add new patient</a></li>
-					<li><a href="">Show recent patient</a></li>
+					<li><a href="recentPatients">Show recent patient</a></li>
 					<li><a href="" id="searchStuff">Search stuff</a></li>
 
 					<form class="navbar-form navbar-left" action="Search" method='GET'>

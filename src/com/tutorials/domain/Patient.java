@@ -16,10 +16,10 @@ public class Patient {
 	private Integer id;
 
 	@Column(name = "FIRSTNAME")
-	private String firstName;
+	private String firstname;
 
 	@Column(name = "LASTNAME")
-	private String lastName;
+	private String lastname;
 
 	@Column(name = "NAME")
 	private String name;
@@ -54,19 +54,19 @@ public class Patient {
 	}
 
 	public String getFirstname() {
-		return firstName;
+		return firstname;
 	}
 
 	public void setFirstname(String firstname) {
-		this.firstName = firstname;
+		this.firstname = firstname;
 	}
 
 	public String getLastname() {
-		return lastName;
+		return lastname;
 	}
 
 	public void setLastname(String lastname) {
-		this.lastName = lastname;
+		this.lastname = lastname;
 	}
 
 	public String getName() {

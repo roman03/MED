@@ -26,7 +26,7 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="NameID">Name</label>
 				<div class="col-md-6">
-					<input id="NameId" name="NameID" type="text" placeholder="Name"
+					<input id="nameId" name="NameID" type="text" placeholder="Name"
 						class="form-control input-md">
 				</div>
 			</div>
@@ -123,27 +123,6 @@
 						});
 			});
 		</script>
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="datetimepicker8">End
-					of treatment</label>
-				<div class='input-group date '
-					style="width: 450px; padding-left: 10px;" id='dateEndTreatmentId'>
-					<input type='text' class="form-control" /> <span
-						class="input-group-addon "><span
-						class="glyphicon glyphicon-calendar "></span> </span>
-				</div>
-			</div>
-			<script>
-			$(function() {
-				$('#dateEndTreatmentId').datetimepicker(
-						{
-							defaultDate : "",
-							disabledDates : [("12/25/2013"),
-									new Date(2013, 11 - 1, 21),
-									"11/22/2013 00:53" ]
-						});
-			});
-		</script>
 
 			<!-- Button -->
 			<div class="form-group">
@@ -164,21 +143,21 @@ $("#submitId").click(function(){
 		sexx = $("#sexId-0").val()
 	}
 	var ob = {},
-		namee = $("#nameId").val(),
+		name = $("#nameId").val(),
 		firstName = $("#firstNameId").val(),
-		lastName = $("#lastNameId").val();
+		lastName = $("#lastNameId").val(),
 		age = $("#ageId").val(),
 		sex = sexx,
 		address = $("#adressId").val(),
 		work = $("#aboutId").val(),
 		diagnosis = $("#diagnosisId").val(),
 		dataArrived = $("#dateArrivedId").val(),
-		endTreatment = $("#dateEndTreatmentId").val();
 
 	ob.url = "add";
 	ob.type = "POST";
-	ob.data = {username: name, firstname: firstName, lastname: lastName, age: age, sex: sex, address: address, 
-				workPlace: work, diagnosis: diagnosis, dataArrived: dataArrived, endTreatment: endTreatment};	
+	ob.data = {patientname: name, firstname: firstName, lastname: lastName, age: age, sex: sex, address: address, 
+				workPlace: work, diagnosis: diagnosis, dataArrived: dataArrived};	
+	
 	$.ajax(ob);
 });
 
