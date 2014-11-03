@@ -1,10 +1,16 @@
 package com.tutorialspoint;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorials.domain.Patient;
 import com.tutorials.service.DataService;
+import com.tutorialspoint.validator.NewPatientValidator;
 
 @Controller
 public class HelloController {
@@ -19,6 +26,9 @@ public class HelloController {
 	private final static int LAST_PATIENT_COUNT = 4;
 	@Autowired
 	DataService dataService;
+
+	@Autowired
+	NewPatientValidator patientValidation;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
@@ -45,27 +55,28 @@ public class HelloController {
 	}
 
 	@RequestMapping(value = "/addNewPatient", method = RequestMethod.GET)
-	public ModelAndView addNewPatient(ModelMap model) {
-		ModelAndView modelAndView = new ModelAndView("addNewPatient");
-		return modelAndView;
+	public String addPatientForm(ModelMap model, Principal principal,
+			HttpSession session) {
+		model.addAttribute("patient", new Patient());
+		return "addNewPatient";
 	}
 
 	@RequestMapping(value = "/recentPatients", method = RequestMethod.GET)
 	public ModelAndView recentPatients(ModelMap model) {
+		ModelAndView mav = new ModelAndView();
 
 		List<Patient> patients = dataService.getRecentPatinets(getInterval());
-		ModelAndView mav = new ModelAndView();
 		mav.addObject("object", patients);
+
 		return mav;
 	}
 
 	private Integer[] getInterval() {
 		int lastPatinetId = dataService.getLastId();
-		Integer[] patients;
+		Integer[] patients = null;
 		if (lastPatinetId > LAST_PATIENT_COUNT) {
 			patients = new Integer[LAST_PATIENT_COUNT];
-			for (int i = lastPatinetId, y = 0; i > lastPatinetId
-					- LAST_PATIENT_COUNT; i--, y++) {
+			for (int i = lastPatinetId, y = 0; i > LAST_PATIENT_COUNT; i--, y++) {
 				patients[y] = new Integer(i);
 			}
 		} else {
@@ -78,26 +89,17 @@ public class HelloController {
 		return patients;
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-	public String testGet(@RequestParam String patientname,
-			@RequestParam String firstname, @RequestParam String lastname,
-			@RequestParam String age, @RequestParam String sex,
-			@RequestParam String address, @RequestParam String workPlace,
-			@RequestParam String diagnosis, @RequestParam String dataArrived) {
+	@RequestMapping(value = "/addNewPatient", method = RequestMethod.POST)
+	public String addPatient(@ModelAttribute("patient") @Valid Patient patient,
+			BindingResult result, ModelMap model) {
 
-		Patient patient = new Patient();
-		patient.setName(patientname);
-		patient.setFirstname(firstname);
-		patient.setLastname(lastname);
-		patient.setAge(age);
-		patient.setSex(sex);
-		patient.setAddress(address);
-		patient.setWorkplace(workPlace);
-		patient.setDiagnosis(diagnosis);
-		patient.setDateArrived(dataArrived);
+		patientValidation.validate(patient, result);
 
+		if (result.hasErrors()) {
+			return "addNewPatient";
+		}
 		dataService.insertRow(patient);
-		return "redirect:/newPatient";
-	}
 
+		return "recentPatients";
+	}
 }
