@@ -24,6 +24,8 @@
 		<%@ include file="header.jsp"%>
 	</div>
 	<div class="table-responsive" style="width: 1200px;">
+
+
 		<table class="table bs-example">
 			<thead>
 				<tr>
@@ -36,7 +38,6 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${object}" var="patient">
-
 					<tr>
 						<td>${patient.name}</td>
 						<td>${patient.firstname}</td>
@@ -44,10 +45,10 @@
 						<td>${patient.age}</td>
 						<td>${patient.diagnosis}</td>
 					</tr>
-
-				</c:forEach>
+					</c:forEach>
 			</tbody>
 		</table>
+
 	</div>
 
 
