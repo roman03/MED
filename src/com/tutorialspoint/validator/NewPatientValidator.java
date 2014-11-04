@@ -18,14 +18,19 @@ public class NewPatientValidator implements Validator {
 	public void validate(Object arg0, Errors errors) {
 		Patient patient = (Patient) arg0;
 
-		if (patient.getName() == null) {
+		if (patient.getName() == null || patient.getName().isEmpty()) {
 			errors.rejectValue("name", "Name can`t be empty",
 					"Name can`t be empty");
 		}
 
-		if (patient.getFirstname() == null) {
+		if (patient.getFirstname() == null || patient.getFirstname().isEmpty()) {
 			errors.rejectValue("firstname", "First Name can`t be empty",
 					"First Name can`t be empty");
+		}
+
+		if (patient.getLastname() == null || patient.getLastname().isEmpty()) {
+			errors.rejectValue("lastname", "Last Name can`t be empty",
+					"Last Name can`t be empty");
 		}
 
 	}

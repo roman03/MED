@@ -31,6 +31,7 @@
 				<div class="col-md-6">
 					<form:input id="nameId" path="name" name="NameID" type="text"
 						placeholder="Name" class="form-control input-md"></form:input>
+						<form:errors class="alert alert-error" role="alert" path="name"/>
 				</div>
 			</div>
 
@@ -41,6 +42,7 @@
 				<div class="col-md-6">
 					<form:input id="firstNameId" path="firstname" name="firstNameId"
 						type="text" placeholder="First Name" class="form-control input-md"></form:input>
+					<form:errors class="alert alert-error" role="alert" path="firstname"/>
 				</div>
 			</div>
 
@@ -51,6 +53,7 @@
 				<div class="col-md-6">
 					<form:input id="lastNameId" path="lastname" name="lastNameID"
 						type="text" placeholder="Last Name" class="form-control input-md"></form:input>
+						<form:errors class="alert alert-error" role="alert" path="lastname"/>
 				</div>
 			</div>
 
@@ -67,7 +70,8 @@
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="sexId">Sex</label>
 				<div class="col-md-4">
-					<form:radiobutton path="sex" class="radio-inline" value="Male" checked="checked" />
+					<form:radiobutton path="sex" class="radio-inline" value="Male"
+						checked="checked" />
 					Male
 					<form:radiobutton path="sex" class="radio-inline" value="Female" />
 					Female
