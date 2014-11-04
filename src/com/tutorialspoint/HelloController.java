@@ -76,13 +76,13 @@ public class HelloController {
 		Integer[] patients = null;
 		if (lastPatinetId > LAST_PATIENT_COUNT) {
 			patients = new Integer[LAST_PATIENT_COUNT];
-			for (int i = lastPatinetId, y = 0; i > LAST_PATIENT_COUNT; i--, y++) {
+			for (int i = lastPatinetId, y = 0; y < LAST_PATIENT_COUNT; i--, y++) {
 				patients[y] = new Integer(i);
 			}
 		} else {
 			patients = new Integer[lastPatinetId];
-			for (int i = 0; i < lastPatinetId; i++) {
-				patients[i] = new Integer(i);
+			for (int i = lastPatinetId, y = 0; y < lastPatinetId; i--, y++) {
+				patients[y] = new Integer(i);
 			}
 		}
 
