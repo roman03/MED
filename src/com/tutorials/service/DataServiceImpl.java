@@ -27,4 +27,10 @@ public class DataServiceImpl implements DataService {
 	public Integer getLastId() {
 		return dataDao.getLastId();
 	}
+
+	@Override
+	public Patient getPatient(int Id) {
+		return dataDao.getPatient(Id);
+	}
+
 }

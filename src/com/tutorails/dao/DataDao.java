@@ -10,4 +10,6 @@ public interface DataDao {
 	public List<Patient> getRecentPatinets(Integer[] interval);
 
 	public Integer getLastId();
+
+	public Patient getPatient(int Id);
 }

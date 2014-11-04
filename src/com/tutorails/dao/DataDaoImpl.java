@@ -57,4 +57,12 @@ public class DataDaoImpl implements DataDao {
 		return (Integer) criteria.uniqueResult();
 	}
 
+	@Override
+	public Patient getPatient(int Id) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(Patient.class);
+		criteria.add(Restrictions.eq("id", Id));
+		return (Patient) criteria.uniqueResult();
+	}
+
 }
