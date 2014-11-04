@@ -100,6 +100,6 @@ public class HelloController {
 		}
 		dataService.insertRow(patient);
 
-		return "recentPatients";
+		return "redirect:recentPatients";
 	}
 }
