@@ -23,12 +23,12 @@
 	<div id="header" style="width: screen.width;">
 		<%@ include file="header.jsp"%>
 	</div>
-	<div class="table-responsive" style="width: 1200px;">
-
-
-		<table class="table bs-example">
+	<div class="table-responsive" style="width: 1200px;" id="table">
+		<table id="events-table" class="table bs-example table-hover"
+			data-row-style="rowStyle">
 			<thead>
 				<tr>
+					<td id="Id">Id</td>
 					<td>Name</td>
 					<td>First Name</td>
 					<td>Last Name</td>
@@ -38,19 +38,47 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${object}" var="patient">
-					<tr>
+					<tr id="${patient.id}">
+						<td>${patient.id}</td>
 						<td>${patient.name}</td>
 						<td>${patient.firstname}</td>
 						<td>${patient.lastname}</td>
 						<td>${patient.age}</td>
 						<td>${patient.diagnosis}</td>
 					</tr>
-					</c:forEach>
+				</c:forEach>
 			</tbody>
 		</table>
 
+		<div class="form-horizontal" id="pat" style="display: none;">
+			Hello</div>
+		<script>
+			$(function() {
+				$('.table-hover tr').click(function() {
+					$("#table").hide();
+					var ob = {}, Id = $(this).attr('id')
+					ob.url = "/HelloWeb/showPatient";
+					ob.type = "GET";
+					ob.data = {
+						patientId : Id
+					};
+					ob.success = function(response) {
+						debugger
+						if (response.success === "true") {
+							alert("good");
+						} else {
+							alert("not good");
+						}
+						//$("#container").html(response);
+					};
+					$.ajax(ob);
+				});
+			});
+		</script>
+
 	</div>
 
+	<div></div>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

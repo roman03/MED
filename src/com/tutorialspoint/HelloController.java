@@ -1,11 +1,14 @@
 package com.tutorialspoint;
 
 import java.security.Principal;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorials.domain.Patient;
@@ -52,6 +56,15 @@ public class HelloController {
 		model.addAttribute("message",
 				"Welcome to your first Spring Security Example");
 		return "login";
+	}
+
+	@RequestMapping(value = "/showPatient", method = RequestMethod.GET)
+	public @ResponseBody String showPatient(@RequestParam String patientId) {
+		Patient patient = dataService.getPatient(Integer.parseInt(patientId));
+		Map obj = new LinkedHashMap();
+		obj.put("success", patient != null ? "true" : "false");
+		obj.put("patient", patient);
+		return JSONValue.toJSONString(obj);
 	}
 
 	@RequestMapping(value = "/addNewPatient", method = RequestMethod.GET)
