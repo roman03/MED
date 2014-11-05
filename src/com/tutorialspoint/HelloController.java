@@ -22,12 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.tutorials.domain.Patient;
 import com.tutorials.service.DataService;
+import com.tutorialspoint.utils.Utils;
 import com.tutorialspoint.validator.NewPatientValidator;
 
 @Controller
 public class HelloController {
 
-	private final static int LAST_PATIENT_COUNT = 4;
 	@Autowired
 	DataService dataService;
 
@@ -61,10 +61,14 @@ public class HelloController {
 	@RequestMapping(value = "/showPatient", method = RequestMethod.GET)
 	public @ResponseBody String showPatient(@RequestParam String patientId) {
 		Patient patient = dataService.getPatient(Integer.parseInt(patientId));
-		Map obj = new LinkedHashMap();
-		obj.put("success", patient != null ? "true" : "false");
-		obj.put("patient", patient);
-		return JSONValue.toJSONString(obj);
+
+		Map<String, String> pationtMap = Utils.fillPatientMap(patient);
+		Map<String, String> result = new LinkedHashMap<String, String>();
+
+		result.put("success", patient != null ? "true" : "false");
+		result.put("patient", JSONValue.toJSONString(pationtMap));
+
+		return JSONValue.toJSONString(result);
 	}
 
 	@RequestMapping(value = "/addNewPatient", method = RequestMethod.GET)
@@ -77,29 +81,12 @@ public class HelloController {
 	@RequestMapping(value = "/recentPatients", method = RequestMethod.GET)
 	public ModelAndView recentPatients(ModelMap model) {
 		ModelAndView mav = new ModelAndView();
-
-		List<Patient> patients = dataService.getRecentPatinets(getInterval());
+		int lastPatinetId = dataService.getLastId();
+		List<Patient> patients = dataService.getRecentPatinets(Utils
+				.getInterval(lastPatinetId));
 		mav.addObject("object", patients);
 
 		return mav;
-	}
-
-	private Integer[] getInterval() {
-		int lastPatinetId = dataService.getLastId();
-		Integer[] patients = null;
-		if (lastPatinetId > LAST_PATIENT_COUNT) {
-			patients = new Integer[LAST_PATIENT_COUNT];
-			for (int i = lastPatinetId, y = 0; y < LAST_PATIENT_COUNT; i--, y++) {
-				patients[y] = new Integer(i);
-			}
-		} else {
-			patients = new Integer[lastPatinetId];
-			for (int i = lastPatinetId, y = 0; y < lastPatinetId; i--, y++) {
-				patients[y] = new Integer(i);
-			}
-		}
-
-		return patients;
 	}
 
 	@RequestMapping(value = "/addNewPatient", method = RequestMethod.POST)
