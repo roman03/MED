@@ -10,23 +10,21 @@
 					<li><a href="addNewPatient">Add new patient</a></li>
 					<li><a href="recentPatients">Show recent patient</a></li>
 					<li><a href="" id="searchStuff">Search stuff</a></li>
-
-					<form class="navbar-form navbar-left" action="Search" method='GET'>
-						<div class="form-group">
-							<input type="text" class="form-control"
-								placeholder="Search Patient">
-						</div>
-						<button type="submit" class="btn btn-default">Search</button>
-					</form>
-
-					<form class="navbar-form navbar-right" id="logoutForm"
-						action="j_spring_security_logout" method='POST'>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
-					</form>
-
 					<li><a href="javascript:formSubmit()">Logout</a></li>
 				</ul>
+				<form class="navbar-form navbar-left" action="Search" method='GET'>
+					<div class="form-group">
+						<input type="text" class="form-control"
+							placeholder="Search Patient">
+					</div>
+					<button type="submit" class="btn btn-default">Search</button>
+				</form>
+
+				<form class="navbar-form navbar-right" id="logoutForm"
+					action="j_spring_security_logout" method='POST'>
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
 			</div>
 			<!--/.nav-collapse -->
 		</div>
