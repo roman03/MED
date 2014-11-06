@@ -37,6 +37,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.tutorials.domain.Patient</value>
+				<value>com.tutorials.domain.Doctor</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -1,8 +1,14 @@
 package com.tutorialspoint.utils;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Patient;
 
 public class Utils {
@@ -38,5 +44,23 @@ public class Utils {
 		pationtMap.put("diagnosis", patient.getDiagnosis());
 
 		return pationtMap;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static JSONArray getDoctors(List<Doctor> list) {
+		JSONArray jsonArray = new JSONArray();
+
+		Iterator<Doctor> itr = list.iterator();
+		while (itr.hasNext()) {
+			Doctor doctor = itr.next();
+			JSONObject formDetailsJson = new JSONObject();
+			formDetailsJson.put("name", doctor.getName());
+			formDetailsJson.put("lastName", doctor.getLastname());
+			formDetailsJson.put("post", doctor.getPost());
+			formDetailsJson.put("calendarId", doctor.getCalendarId());
+			formDetailsJson.put("hospitalId", doctor.getHospitalId());
+			jsonArray.add(formDetailsJson);
+		}
+		return jsonArray;
 	}
 }

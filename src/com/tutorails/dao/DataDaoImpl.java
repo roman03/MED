@@ -66,10 +66,10 @@ public class DataDaoImpl implements DataDao {
 		return (Patient) criteria.uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Doctor> getAll() {
 		Session session = sessionFactory.openSession();
 		return session.createCriteria(Doctor.class).list();
 	}
-
 }

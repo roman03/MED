@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,4 +103,17 @@ public class HelloController {
 
 		return "redirect:recentPatients";
 	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/DoctorList", method = RequestMethod.GET)
+	public @ResponseBody String showDoctors() {
+
+		JSONObject responseDetailsJson = new JSONObject();
+
+		responseDetailsJson.put("doctors",
+				Utils.getDoctors(dataService.getAll()));
+
+		return JSONValue.toJSONString(responseDetailsJson);
+	}
+
 }
