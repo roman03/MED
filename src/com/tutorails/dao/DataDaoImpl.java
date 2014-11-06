@@ -14,6 +14,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Patient;
 
 @Repository
@@ -63,6 +64,12 @@ public class DataDaoImpl implements DataDao {
 		Criteria criteria = session.createCriteria(Patient.class);
 		criteria.add(Restrictions.eq("id", Id));
 		return (Patient) criteria.uniqueResult();
+	}
+
+	@Override
+	public List<Doctor> getAll() {
+		Session session = sessionFactory.openSession();
+		return session.createCriteria(Doctor.class).list();
 	}
 
 }

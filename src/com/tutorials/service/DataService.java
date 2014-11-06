@@ -2,6 +2,7 @@ package com.tutorials.service;
 
 import java.util.List;
 
+import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Patient;
 
 public interface DataService {
@@ -12,4 +13,6 @@ public interface DataService {
 	public Integer getLastId();
 
 	public Patient getPatient(int Id);
+
+	public List<Doctor> getAll();
 }
