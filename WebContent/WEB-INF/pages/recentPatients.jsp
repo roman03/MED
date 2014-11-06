@@ -1,6 +1,7 @@
 <%@page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,36 +50,61 @@
 				</c:forEach>
 			</tbody>
 		</table>
-
-		<div class="form-horizontal" id="pat" style="display: none;">
-			Hello</div>
-		<script>
-			$(function() {
-				$('.table-hover tr').click(function() {
-					$("#table").hide();
-					var ob = {}, Id = $(this).attr('id')
-					ob.url = "/HelloWeb/showPatient";
-					ob.type = "GET";
-					ob.data = {
-						patientId : Id
-					};
-					ob.success = function(response) {
-						debugger
-						if (response.success === "true") {
-							alert("good");
-						} else {
-							alert("not good");
-						}
-						//$("#container").html(response);
-					};
-					$.ajax(ob);
-				});
-			});
-		</script>
-
 	</div>
+	<%@ include file="patientForm.jsp"%>
+	<script>
+		$(function() {
+			$('.table-hover tr').click(function() {
+				$("#table").hide();
+				document.getElementById("form").style.visibility = "visible";
+				var ob = {}, Id = $(this).attr('id')
+				ob.url = "/HelloWeb/showPatient";
+				ob.type = "GET";
+				ob.data = {
+					patientId : Id
+				};
+				ob.success = function(response) {
+					var obj = jQuery.parseJSON(response)
+					if (obj.success === "true") {
+						fillPatientForm(obj.patient);
+					} else {
+						alert("Patient not exist");
+					}
+					//$("#container").html(response);
+				};
+				$.ajax(ob);
+			});
+		});
 
-	<div></div>
+		function fillPatientForm(patientJSON) {
+			var patient = jQuery.parseJSON(patientJSON);
+			nameId.value = patient.name;
+			firstNameId.value = patient.firstName;
+			lastNameId.value = patient.lastName;
+			ageId.value = patient.age;
+			sexId.value = patient.sex;
+			adressId.value = patient.address;
+			aboutId.value = patient.workplace;
+			diagnosisId.value = patient.diagnosis;
+		}
+	</script>
+
+	<script>
+		function submit_form() {
+			var ob = {};
+			ob.url = "/HelloWeb/DoctorList";
+			ob.type = "GET";
+			ob.success = function(response) {
+				if (response.success === "true") {
+					alert("good");
+				} else {
+					alert("Doctor`s list is empty");
+				}
+			};
+
+			$.ajax(ob);
+		}
+	</script>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->
