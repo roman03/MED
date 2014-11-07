@@ -45,6 +45,12 @@ public class Patient {
 	@Column(name = "ENDTREATMENT")
 	private String endTreatment;
 
+	@Column(name = "HOSPITALID")
+	private Integer hospitalId;
+
+	@Column(name = "HOSPITALNAME")
+	private String hospitalName;
+
 	public Integer getId() {
 		return id;
 	}
@@ -131,6 +137,22 @@ public class Patient {
 
 	public void setEndTreatment(String endTreatment) {
 		this.endTreatment = endTreatment;
+	}
+
+	public Integer getHospitalId() {
+		return hospitalId;
+	}
+
+	public void setHospitalId(Integer hospitalId) {
+		this.hospitalId = hospitalId;
+	}
+
+	public String getHospitalName() {
+		return hospitalName;
+	}
+
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
 	}
 
 }

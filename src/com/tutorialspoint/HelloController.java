@@ -5,9 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dhtmlx.planner.DHXPlanner;
+import com.dhtmlx.planner.DHXSkin;
+import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
 import com.tutorials.service.DataService;
 import com.tutorialspoint.utils.Utils;
@@ -34,6 +39,9 @@ public class HelloController {
 
 	@Autowired
 	NewPatientValidator patientValidation;
+
+	private static final Logger logger = Logger.getLogger(HelloController.class
+			.getName());
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
@@ -76,6 +84,9 @@ public class HelloController {
 	public String addPatientForm(ModelMap model, Principal principal,
 			HttpSession session) {
 		model.addAttribute("patient", new Patient());
+		List<String> h = dataService.getHospitalsName();
+		logger.info("debug" + h);
+		model.addAttribute("hospitals", h);
 		return "addNewPatient";
 	}
 
@@ -99,6 +110,10 @@ public class HelloController {
 		if (result.hasErrors()) {
 			return "addNewPatient";
 		}
+
+		Integer hospitalId = ((Hospital) dataService
+				.getHospitalIdByName(patient.getHospitalName())).getId();
+		patient.setHospitalId(hospitalId);
 		dataService.insertRow(patient);
 
 		return "redirect:recentPatients";
@@ -112,8 +127,23 @@ public class HelloController {
 
 		responseDetailsJson.put("doctors",
 				Utils.getDoctors(dataService.getAll()));
+		responseDetailsJson.put("sucess", "true");
 
 		return JSONValue.toJSONString(responseDetailsJson);
+	}
+
+	@RequestMapping("/GetCalendar")
+	public ModelAndView planner(HttpServletRequest request) throws Exception {
+		DHXPlanner p = new DHXPlanner("resources/codebase/", DHXSkin.TERRACE);
+		p.setInitialDate(2013, 1, 7);
+		p.config.setScrollHour(8);
+		p.setWidth(800);
+		p.setHeight(600);
+		// p.load("events", DHXDataFormat.JSON);
+
+		ModelAndView mnv = new ModelAndView("test");
+		mnv.addObject("body", p.render());
+		return mnv;
 	}
 
 }

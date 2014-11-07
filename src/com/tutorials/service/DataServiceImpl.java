@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dhtmlx.planner.DHXEv;
+import com.dhtmlx.planner.DHXStatus;
 import com.tutorails.dao.DataDao;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Patient;
@@ -37,6 +39,26 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<Doctor> getAll() {
 		return dataDao.getAll();
+	}
+
+	@Override
+	public Iterable<DHXEv> getEvent() {
+		return dataDao.getEvent();
+	}
+
+	@Override
+	public DHXStatus saveEvent(DHXEv event, DHXStatus status) {
+		return dataDao.saveEvent(event, status);
+	}
+
+	@Override
+	public List<String> getHospitalsName() {
+		return dataDao.getHospitalsName();
+	}
+
+	@Override
+	public Object getHospitalIdByName(String name) {
+		return dataDao.getHospitalIdByName(name);
 	}
 
 }

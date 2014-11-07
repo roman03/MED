@@ -12,6 +12,7 @@
 
 <!-- Custom styles for this template -->
 <link href="resources/navbar.css" rel="stylesheet">
+<link href="resources/customCSS/custom.css" rel="stylesheet">
 
 <script src="resources/jquery-2.1.1.min.js"></script>
 <script src="resources/bootstrap.js"></script>

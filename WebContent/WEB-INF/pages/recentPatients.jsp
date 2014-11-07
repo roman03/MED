@@ -11,13 +11,6 @@
 <script src="resources/bootstrap.js"></script>
 <script src="resources/bootstrap.min.js"></script>
 
-
-<style type="text/css">
-.bs-example {
-	margin: 60px;
-}
-</style>
-
 </head>
 <body>
 
@@ -51,6 +44,12 @@
 			</tbody>
 		</table>
 	</div>
+
+	<div class="table-responsive" style="width: 1200px;" id="tableDiv">
+	</div>
+
+
+
 	<%@ include file="patientForm.jsp"%>
 	<script>
 		$(function() {
@@ -95,14 +94,33 @@
 			ob.url = "/HelloWeb/DoctorList";
 			ob.type = "GET";
 			ob.success = function(response) {
-				if (response.success === "true") {
-					alert("good");
+				var resp = jQuery.parseJSON(response);
+				if (resp.sucess === "true") {
+					document.getElementById("form").style.visibility = "hidden";
 				} else {
 					alert("Doctor`s list is empty");
 				}
 			};
 
 			$.ajax(ob);
+		}
+
+		function show_calendar() {
+			window.location = "/HelloWeb/GetCalendar";
+			//var ob = {};
+			//ob.url = "/HelloWeb/GetCalendar";
+			//ob.type = "GET";
+			//ob.success = function(response) {
+			//var resp = jQuery.parseJSON(response);
+			//if (resp.sucess === "true") {
+			//document.getElementById("form").style.visibility = "hidden";
+			//	alert("ok");
+			//} else {
+			//	alert("Doctor`s list is empty");
+			//}
+			//};
+
+			//$.ajax(ob);
 		}
 	</script>
 

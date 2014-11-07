@@ -1,13 +1,3 @@
-<style type="text/css">
-.hiden {
-	visibility: hidden;
-}
-
-.botton_margin {
-	margin-bottom: 2px;
-	'
-}
-</style>
 
 <div class="container hiden bs-example" id="form"
 	style="width: screen.width;">
@@ -121,10 +111,10 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-md-4 control-label" for="addDoctorId"></label>
+			<label class="col-md-4 control-label" for="showCalendarId"></label>
 			<div class="col-md-4">
 				<input type="button" class="btn btn-primary" id="showCalendarId"
-					name="submit" value="showCalendar" onclick="submit_form();" />
+					name="submit" value="showCalendar" onclick="show_calendar();" />
 			</div>
 		</div>
 	</div>

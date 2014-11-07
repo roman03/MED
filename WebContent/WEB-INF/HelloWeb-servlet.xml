@@ -12,6 +12,7 @@
 	<context:component-scan base-package="com.tutorialspoint" />
 	<context:component-scan base-package="com.tutorails.dao" />
 	<context:component-scan base-package="com.tutorials.service" />
+	<context:component-scan base-package="com.tutorials.event" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -38,6 +39,8 @@
 			<list>
 				<value>com.tutorials.domain.Patient</value>
 				<value>com.tutorials.domain.Doctor</value>
+				<value>com.tutorials.domain.Hospital</value>
+				<value>com.tutorials.domain.Event</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

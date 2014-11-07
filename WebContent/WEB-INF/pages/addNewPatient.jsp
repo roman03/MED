@@ -1,4 +1,5 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page session="true"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,7 @@
 				<div class="col-md-6">
 					<form:input id="nameId" path="name" name="NameID" type="text"
 						placeholder="Name" class="form-control input-md"></form:input>
-						<form:errors class="alert alert-error" role="alert" path="name"/>
+					<form:errors class="alert alert-error" role="alert" path="name" />
 				</div>
 			</div>
 
@@ -42,7 +43,8 @@
 				<div class="col-md-6">
 					<form:input id="firstNameId" path="firstname" name="firstNameId"
 						type="text" placeholder="First Name" class="form-control input-md"></form:input>
-					<form:errors class="alert alert-error" role="alert" path="firstname"/>
+					<form:errors class="alert alert-error" role="alert"
+						path="firstname" />
 				</div>
 			</div>
 
@@ -53,7 +55,7 @@
 				<div class="col-md-6">
 					<form:input id="lastNameId" path="lastname" name="lastNameID"
 						type="text" placeholder="Last Name" class="form-control input-md"></form:input>
-						<form:errors class="alert alert-error" role="alert" path="lastname"/>
+					<form:errors class="alert alert-error" role="alert" path="lastname" />
 				</div>
 			</div>
 
@@ -105,6 +107,22 @@
 				<div class="col-md-4">
 					<form:textarea class="form-control" path="diagnosis"
 						id="diagnosisId" name="diagnosisId"></form:textarea>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-4 control-label" for="hospitalId">Hospital
+				</label>
+				<div class="col-md-4">
+					<form:select class="form-control" style="width: 450px;" id="hospitalId"
+						name="hospitalId" path="hospitalName">
+						<c:if test="${not empty hospitals}">
+							<c:forEach items="${hospitals}" var="hospital">
+								<option>${hospital}</option>
+							</c:forEach>
+						</c:if>
+
+					</form:select>
 				</div>
 			</div>
 
