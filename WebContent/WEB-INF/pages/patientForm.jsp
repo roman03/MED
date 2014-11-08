@@ -81,24 +81,29 @@
 			</div>
 
 		</div>
+
 		<div class="col-xs-6 botton_margin">
 			<!-- Textarea -->
 			<div class="form-group">
-				<label class="col-md-4 control-label" for="diagnosisId">DiagnosisId
-					at arrived</label>
-				<div class="col-md-4">
-					<textarea class="form-control" id="diagnosisId" name="diagnosisId"
-						style="width: 250px;"></textarea>
-
+				<label class="col-md-4 control-label" for="hospitalId">Hospital
+				</label>
+				<div class="col-md-6">
+					<input id="hospitalId" name="hospitalId" type="text"
+						class="form-control input-md" readonly></input>
 				</div>
 			</div>
 
 		</div>
 	</div>
 	<hr class="divider">
+	<dl>
+		<dt>DiagnosisId at arrived</dt>
+		<dd id="did"></dd>
+	</dl>
 	<div id="appointmentId">
 		<!-- appointment -->
 	</div>
+	<hr class="divider">
 	<hr class="divider">
 	<div>
 		<!-- Button -->
