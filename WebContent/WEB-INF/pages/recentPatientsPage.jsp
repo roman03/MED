@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="includes.jsp"%>
+<%@ include file="../components/includes.jsp"%>
 
 <script src="resources/bootstrap.js"></script>
 <script src="resources/bootstrap.min.js"></script>
@@ -15,7 +15,7 @@
 <body>
 
 	<div id="header" style="width: screen.width;">
-		<%@ include file="header.jsp"%>
+		<%@ include file="../components/header.jsp"%>
 	</div>
 	<div class="table-responsive " id="table">
 		<table id="events-table"

@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="includes.jsp"%>
+<%@ include file="../components/includes.jsp"%>
 </head>
 <body>
 
 	<div id="header" style="width: screen.width;">
-		<%@ include file="header.jsp"%>
+		<%@ include file="../components/header.jsp"%>
 	</div>
 
 	<!-- Bootstrap core JavaScript

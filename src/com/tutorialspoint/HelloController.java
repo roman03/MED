@@ -49,20 +49,20 @@ public class HelloController {
 		if (error != null) {
 			model.addObject("error", "Invalid username or password!");
 		}
-		model.setViewName("login");
+		model.setViewName("loginPage");
 
 		return model;
 	}
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		return "index";
+		return "indexPage";
 	}
 
 	@RequestMapping(value = "/newPatient", method = RequestMethod.GET)
 	public String add(ModelMap model) {
 		model.addAttribute("message", "Welcome to your first Spring Security Example");
-		return "login";
+		return "loginPage";
 	}
 
 	@RequestMapping(value = "/showPatient", method = RequestMethod.GET)
@@ -88,12 +88,12 @@ public class HelloController {
 		log.error("error");
 		log.fatal("fatal");
 		model.addAttribute("hospitals", h);
-		return "addNewPatient";
+		return "addNewPatientPage";
 	}
 
 	@RequestMapping(value = "/recentPatients", method = RequestMethod.GET)
 	public ModelAndView recentPatients(ModelMap model) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("recentPatientsPage");
 		int lastPatinetId = dataService.getLastId();
 		List<Patient> patients = dataService.getRecentPatinets(Utils.getInterval(lastPatinetId));
 		mav.addObject("object", patients);
@@ -107,14 +107,14 @@ public class HelloController {
 		patientValidation.validate(patient, result);
 
 		if (result.hasErrors()) {
-			return "addNewPatient";
+			return "addNewPatientPage";
 		}
 
 		Integer hospitalId = ((Hospital) dataService.getHospitalIdByName(patient.getHospitalName())).getId();
 		patient.setHospitalId(hospitalId);
 		dataService.insertRow(patient);
 
-		return "redirect:recentPatients";
+		return "redirect:recentPatientsPage";
 	}
 
 	@SuppressWarnings("unchecked")

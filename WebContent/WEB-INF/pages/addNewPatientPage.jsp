@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="includes.jsp"%>
+<%@ include file="../components/includes.jsp"%>
 
 <script src="resources/moment.js"></script>
 <script src="resources/bootstrap.js"></script>
@@ -17,7 +17,7 @@
 <body>
 
 	<div id="header" style="width: screen.width;">
-		<%@ include file="header.jsp"%>
+		<%@ include file="../components/header.jsp"%>
 	</div>
 
 	<form:form class="form-horizontal" method="POST" commandName="patient">
