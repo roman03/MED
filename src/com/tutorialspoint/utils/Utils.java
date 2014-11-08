@@ -42,6 +42,7 @@ public class Utils {
 		pationtMap.put("address", patient.getAddress());
 		pationtMap.put("workplace", patient.getWorkplace());
 		pationtMap.put("diagnosis", patient.getDiagnosis());
+		pationtMap.put("hospitalName", patient.getHospitalName());
 
 		return pationtMap;
 	}
