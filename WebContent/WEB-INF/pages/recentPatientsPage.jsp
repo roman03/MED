@@ -69,6 +69,8 @@
 					var obj = jQuery.parseJSON(response)
 					if (obj.success === "true") {
 						fillPatientForm(obj.patient);
+						var value = fillProgressBar();
+						setProgressText(value);
 					} else {
 						alert("Patient not exist");
 					}
@@ -78,18 +80,7 @@
 			});
 		});
 
-		function fillPatientForm(patientJSON) {
-			var patient = jQuery.parseJSON(patientJSON);
-			nameId.value = patient.name;
-			firstNameId.value = patient.firstName;
-			lastNameId.value = patient.lastName;
-			ageId.value = patient.age;
-			sexId.value = patient.sex;
-			adressId.value = patient.address;
-			aboutId.value = patient.workplace;
-			$('#did').text(patient.diagnosis);
-			hospitalId.value = patient.hospitalName;
-		}
+		
 
 		function submit_form() {
 			var ob = {};

@@ -114,7 +114,7 @@ public class HelloController {
 		patient.setHospitalId(hospitalId);
 		dataService.insertRow(patient);
 
-		return "redirect:recentPatientsPage";
+		return "redirect:recentPatients";
 	}
 
 	@SuppressWarnings("unchecked")
