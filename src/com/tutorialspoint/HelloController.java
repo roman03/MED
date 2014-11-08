@@ -123,6 +123,11 @@ public class HelloController {
 
 		JSONObject responseDetailsJson = new JSONObject();
 
+		if (hospital == null || hospital.isEmpty()) {
+			responseDetailsJson.put("sucess", "false");
+			return JSONValue.toJSONString(responseDetailsJson);
+		}
+
 		Integer hospitalId = ((Hospital) dataService.getHospitalIdByName(hospital)).getId();
 
 		List<Doctor> doctorList = dataService.getDoctorsFromHospital(hospitalId);
