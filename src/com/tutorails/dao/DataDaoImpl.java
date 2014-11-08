@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,6 +21,7 @@ import com.dhtmlx.planner.DHXEvent;
 import com.dhtmlx.planner.DHXStatus;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
+import com.tutorials.domain.MedCard;
 import com.tutorials.domain.Patient;
 
 @Repository
@@ -143,5 +145,36 @@ public class DataDaoImpl implements DataDao {
 		Criteria criteria = session.createCriteria(Doctor.class);
 		criteria.add(Restrictions.eq("hospitalId", hospitalId));
 		return criteria.list();
+	}
+
+	@Override
+	public Integer insertMedCard(MedCard card) throws Exception {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.saveOrUpdate(card);
+		tx.commit();
+		Serializable id = session.getIdentifier(card);
+		session.close();
+		return (Integer) id;
+	}
+
+	@Override
+	public void updatePatient(Integer Id, Patient patient) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Patient oldPatient = (Patient) session.get(Patient.class, Id);
+			oldPatient.setPatient(patient);
+			session.update(oldPatient);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
 	}
 }

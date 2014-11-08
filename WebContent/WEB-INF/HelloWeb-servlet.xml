@@ -41,6 +41,7 @@
 				<value>com.tutorials.domain.Doctor</value>
 				<value>com.tutorials.domain.Hospital</value>
 				<value>com.tutorials.domain.Event</value>
+				<value>com.tutorials.domain.MedCard</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

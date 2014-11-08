@@ -4,7 +4,7 @@
 			data-row-style="rowStyle">
 			<thead>
 				<tr>
-					<td id="Id"><strong>Id</strong></td>
+					<td><strong>Id</strong></td>
 					<td><strong>Name</strong></td>
 					<td><strong>Last Name</strong></td>
 					<td><strong>Post</strong></td>
@@ -18,7 +18,7 @@
 
 		<div class="row">
 			<div class="col-md-6">
-				<button type="button" class="btn btn-success " style="width:100%" onclick="done;">Done</button>
+				<button type="button" class="btn btn-success " style="width:100%" onclick="Done();">Done</button>
 			</div>
 			<div class="col-md-6">
 				<button type="button" class="btn btn-info " style="width:100%" onclick="clearDoctorTable();">Cancel</button>
@@ -60,7 +60,7 @@
 			td = document.createElement("td");
 			var newCheckBox = document.createElement('input');
 			newCheckBox.type = 'checkbox';
-			newCheckBox.id = 'ptworkinfo' + y;
+			newCheckBox.id = 'checkbox' + y;
 			td.appendChild(newCheckBox);
 			tr.appendChild(td);
 
@@ -75,6 +75,40 @@
 		while(table.tBodies.tableBody.rows.length > 0) {
 			  table.deleteRow(1);
 			}
+	}
+	
+	function Done() {
+		var selectedDoctors = [];
+		table = document.getElementById("table1");
+		for (i = 0, y = 0; i < table.tBodies.tableBody.rows.length; i++) {
+			if (document.getElementById("checkbox" + i).checked === true) {
+				selectedDoctors[y] = getDoctorId(table.tBodies.tableBody.children[i]);
+				y++;
+			}
+		}
+		var ob = {};
+		ob.url = "/HelloWeb/addDoctor"
+		ob.type = "POST";
+		var pat = patientId.value;
+		ob.data = {
+			doctors : selectedDoctors,
+			patient : pat
+		};
+		ob.success = function(response) {
+			var obj = jQuery.parseJSON(response)
+			if (obj.sucess === true) {
+				clearDoctorTable();
+			} else {
+				alert("Can`t add doctor to patient");
+			}
+			//$("#container").html(response);
+		};
+		$.ajax(ob);
+
+	}
+	
+	function getDoctorId(row) {
+		return row.children[0].innerText
 	}
 	
 	</script>

@@ -25,6 +25,9 @@
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
 				</form>
+				<div style="visibility: hidden;">
+					<label class="col-md-1 control-label" id="patientId"></label>
+				</div>
 			</div>
 			<!--/.nav-collapse -->
 		</div>

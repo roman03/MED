@@ -7,7 +7,9 @@
 		<dd>
 			<div class="progress">
 				<div class="progress-bar" role="progressbar" aria-valuenow="0"
-					aria-valuemin="0" aria-valuemax="100" id="progressBarId"><p id="progressValueId"></p></div>
+					aria-valuemin="0" aria-valuemax="100" id="progressBarId">
+					<p id="progressValueId"></p>
+				</div>
 			</div>
 		</dd>
 	</dl>
@@ -20,7 +22,7 @@
 				<label class="col-md-4 control-label" for="NameID">Name</label>
 				<div class="col-md-6">
 					<input id="nameId" name="NameID" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 		</div>
@@ -31,7 +33,7 @@
 					Name</label>
 				<div class="col-md-6">
 					<input id="firstNameId" name="firstNameId" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 		</div>
@@ -42,7 +44,7 @@
 					Name</label>
 				<div class="col-md-6">
 					<input id="lastNameId" name="lastNameID" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 		</div>
@@ -51,9 +53,9 @@
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="ageId">Age</label>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<input id="ageId" name="ageId" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 		</div>
@@ -62,9 +64,9 @@
 			<!-- Text input-->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="sexId">Sex</label>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<input id="sexId" name="ageId" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 
@@ -76,7 +78,7 @@
 				<label class="col-md-4 control-label" for="adressId">Address</label>
 				<div class="col-md-6">
 					<input id="adressId" name="adressId" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 
@@ -88,7 +90,7 @@
 					Place/position</label>
 				<div class="col-md-6">
 					<input id="aboutId" name="aboutId" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
 
@@ -101,12 +103,21 @@
 				</label>
 				<div class="col-md-6">
 					<input id="hospitalId" name="hospitalId" type="text"
-						class="form-control input-md" readonly></input>
+						class="form-control input-md"></input>
 				</div>
 			</div>
-
 		</div>
 	</div>
+	<div class="container">
+		<div class="col-md-6" style="margin-left: -15px;">
+			<button type="button" class="btn btn-primary" onclick="update();">Update</button>
+			<span class="label label-danger" style="visibility: hidden;"
+				id="labelDanger"></span> <span class="label label-success"
+				style="visibility: hidden;" id="labelSuccess"></span>
+		</div>
+
+	</div>
+
 	<hr class="divider">
 	<dl>
 		<dt>DiagnosisId at arrived</dt>
@@ -131,7 +142,7 @@
 </div>
 
 <script>
-	function fillPatientForm(patientJSON) {
+	function fillPatientForm(patientJSON, id) {
 		var patient = jQuery.parseJSON(patientJSON);
 		nameId.value = patient.name;
 		firstNameId.value = patient.firstName;
@@ -142,6 +153,8 @@
 		aboutId.value = patient.workplace;
 		$('#did').text(patient.diagnosis);
 		hospitalId.value = patient.hospitalName;
+
+		patientId.value = id;
 	}
 
 	function fillProgressBar() {
@@ -161,10 +174,42 @@
 
 		$('.progress-bar').css('width', value + '%').attr('aria-valuenow',
 				value);
-		
+
 		return value
 	}
+
 	function setProgressText(value) {
 		$('#progressValueId').text(value + "%");
+	}
+
+	function update() {
+		var ob = {};
+		ob.url = "/HelloWeb/update/patient/" + patientId.value
+		ob.type = "POST";
+		ob.data = {
+			name : nameId.value,
+			firstName : firstNameId.value,
+			lastName : lastNameId.value,
+			age : ageId.value,
+			sex : sexId.value,
+			adress : adressId.value,
+			about : aboutId.value
+		};
+		ob.success = function(response) {
+			var obj = jQuery.parseJSON(response)
+			if (obj.sucess === true) {
+				document.getElementById('labelSuccess').style.visibility = "visible";
+				$(labelSuccess).text("good");
+				setTimeout(hideLabel, 4000)
+			} else {
+				document.getElementById('labelDanger').style.visibility = "visible";
+			}
+			//$("#container").html(response);
+		};
+		$.ajax(ob);
+	}
+
+	function hideLabel() {
+		document.getElementById('labelSuccess').style.visibility = "hidden";
 	}
 </script>

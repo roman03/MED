@@ -68,7 +68,7 @@
 				ob.success = function(response) {
 					var obj = jQuery.parseJSON(response)
 					if (obj.success === "true") {
-						fillPatientForm(obj.patient);
+						fillPatientForm(obj.patient, Id);
 						var value = fillProgressBar();
 						setProgressText(value);
 					} else {

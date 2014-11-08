@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import com.dhtmlx.planner.DHXPlanner;
 import com.dhtmlx.planner.DHXSkin;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
+import com.tutorials.domain.MedCard;
 import com.tutorials.domain.Patient;
 import com.tutorials.service.DataService;
 import com.tutorialspoint.utils.Utils;
@@ -153,6 +155,46 @@ public class HelloController {
 		ModelAndView mnv = new ModelAndView("calendarPage");
 		mnv.addObject("body", p.render());
 		return mnv;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/addDoctor", method = RequestMethod.POST)
+	public @ResponseBody String addDoctor(@RequestParam(value = "patient") String patient,
+			@RequestParam(value = "doctors[]") String[] doctors) {
+		JSONObject responseDetailsJson = new JSONObject();
+
+		log.info("patinetId" + patient);
+		log.info("doctors " + doctors);
+		try {
+			for (int i = 0; i < doctors.length; i++) {
+				MedCard card = new MedCard();
+				card.setPatientId(Integer.parseInt(patient));
+				card.setDoctorId(Integer.parseInt(doctors[i]));
+				dataService.insertMedCard(card);
+			}
+			responseDetailsJson.put("sucess", true);
+		} catch (NumberFormatException e) {
+			responseDetailsJson.put("sucess", false);
+			e.printStackTrace();
+		} catch (Exception e) {
+			responseDetailsJson.put("sucess", false);
+			e.printStackTrace();
+		}
+		return JSONValue.toJSONString(responseDetailsJson);
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/update/patient/{id}", method = RequestMethod.POST)
+	public @ResponseBody String update(@PathVariable("id") int Id, @RequestParam(value = "name") String name,
+			@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName,
+			@RequestParam(value = "age") String age, @RequestParam(value = "sex") String sex,
+			@RequestParam(value = "adress") String address, @RequestParam(value = "about") String about) {
+
+		Patient patient = new Patient(firstName, lastName, name, age, sex, address, about);
+		dataService.updatePatient(Id, patient);
+		JSONObject responseDetailsJson = new JSONObject();
+		responseDetailsJson.put("sucess", true);
+		return JSONValue.toJSONString(responseDetailsJson);
 	}
 
 }

@@ -10,6 +10,21 @@ import javax.persistence.Table;
 @Table(name = "Patients")
 public class Patient {
 
+	public Patient() {
+	}
+
+	public Patient(String firstname, String lastname, String name, String age, String sex, String address,
+			String workplace) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.name = name;
+		this.age = age;
+		this.sex = sex;
+		this.address = address;
+		this.workplace = workplace;
+	}
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue
@@ -50,6 +65,16 @@ public class Patient {
 
 	@Column(name = "HOSPITALNAME")
 	private String hospitalName;
+
+	public void setPatient(Patient patient) {
+		name = patient.getName();
+		firstname = patient.getFirstname();
+		lastname = patient.getLastname();
+		age = patient.getAge();
+		sex = patient.getSex();
+		address = patient.getAddress();
+		workplace = patient.getWorkplace();
+	}
 
 	public Integer getId() {
 		return id;
