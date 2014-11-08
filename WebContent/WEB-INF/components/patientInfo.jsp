@@ -105,22 +105,13 @@
 	</div>
 	<hr class="divider">
 	<hr class="divider">
-	<div>
-		<!-- Button -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="addDoctorId"></label>
-			<div class="col-md-4">
-				<input type="button" class="btn btn-primary" id="addDoctorId"
-					name="submit" value="addDoctor" onclick="submit_form();" />
+	
+			<div class="row">
+			<div class="col-md-6">
+				<button type="button" class="btn btn-primary " style="width:100%" onclick="submit_form();" >addDoctor</button>
+			</div>
+			<div class="col-md-6">
+				<button type="button" class="btn btn-primary " style="width:100%" onclick="show_calendar();">showCalendar</button>
 			</div>
 		</div>
-
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="showCalendarId"></label>
-			<div class="col-md-4">
-				<input type="button" class="btn btn-primary" id="showCalendarId"
-					name="submit" value="showCalendar" onclick="show_calendar();" />
-			</div>
-		</div>
-	</div>
 </div>

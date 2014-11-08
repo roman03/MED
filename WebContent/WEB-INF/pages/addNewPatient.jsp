@@ -114,7 +114,7 @@
 				<label class="col-md-4 control-label" for="hospitalId">Hospital
 				</label>
 				<div class="col-md-4">
-					<form:select class="form-control" style="width: 450px;" id="hospitalId"
+					<form:select class="form-control" style="width: 430px;" id="hospitalId"
 						name="hospitalId" path="hospitalName">
 						<c:if test="${not empty hospitals}">
 							<c:forEach items="${hospitals}" var="hospital">
@@ -130,7 +130,7 @@
 				<label class="col-md-4 control-label" for="datetimepicker7">Date/Time
 					arrived</label>
 				<div class='input-group date '
-					style="width: 450px; padding-left: 10px;" id='dateArriveId'>
+					style="width: 450px; padding-left: 15px;" id='dateArriveId'>
 					<form:input type='text' path="dateArrived" class="form-control"
 						id="dateArrivedId"></form:input>
 					<span class="input-group-addon "><span

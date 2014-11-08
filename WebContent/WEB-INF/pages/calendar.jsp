@@ -1,3 +1,3 @@
-<div class="content" id="content" style="display:none;">
+<div class="content" id="content" ">
 	<div id="scheduler">${body}</div>
 </div>

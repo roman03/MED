@@ -17,22 +17,23 @@
 	<div id="header" style="width: screen.width;">
 		<%@ include file="header.jsp"%>
 	</div>
-	<div class="table-responsive" style="width: 1200px;" id="table">
-		<table id="events-table" class="table bs-example table-hover"
+	<div class="table-responsive " id="table">
+		<table id="events-table"
+			class="table-bordered table bs-example table-hover"
 			data-row-style="rowStyle">
 			<thead>
 				<tr>
-					<td id="Id">Id</td>
-					<td>Name</td>
-					<td>First Name</td>
-					<td>Last Name</td>
-					<td>Age</td>
-					<td>Diagnosis</td>
+					<td id="Id"><strong>Id</strong></td>
+					<td><strong>Name</strong></td>
+					<td><strong>First Name</strong></td>
+					<td><strong>Last Name</strong></td>
+					<td><strong>Age</strong></td>
+					<td><strong>Diagnosis</strong></td>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${object}" var="patient">
-					<tr id="${patient.id}">
+					<tr id="${patient.id}" class="clickableRow">
 						<td>${patient.id}</td>
 						<td>${patient.name}</td>
 						<td>${patient.firstname}</td>
@@ -44,16 +45,18 @@
 			</tbody>
 		</table>
 	</div>
-
 	<div class="table-responsive" style="width: 1200px;" id="tableDiv">
 	</div>
 
 
 
-	<%@ include file="patientForm.jsp"%>
+	<%@ include file="../components/patientInfo.jsp"%>
+	<%@ include file="../components/selectDoctorTable.jsp"%>
+
+
 	<script>
-		$(function() {
-			$('.table-hover tr').click(function() {
+		jQuery(document).ready(function($) {
+			$(".clickableRow").click(function() {
 				$("#table").hide();
 				document.getElementById("form").style.visibility = "visible";
 				var ob = {}, Id = $(this).attr('id')
@@ -84,19 +87,24 @@
 			sexId.value = patient.sex;
 			adressId.value = patient.address;
 			aboutId.value = patient.workplace;
-			diagnosisId.value = patient.diagnosis;
+			$('#did').text(patient.diagnosis);
+			hospitalId.value = patient.hospitalName;
 		}
-	</script>
 
-	<script>
 		function submit_form() {
 			var ob = {};
 			ob.url = "/HelloWeb/DoctorList";
 			ob.type = "GET";
+			var hospitalID = hospitalId.value;
+			ob.data = {
+				hospital : hospitalID
+			};
 			ob.success = function(response) {
 				var resp = jQuery.parseJSON(response);
 				if (resp.sucess === "true") {
-					document.getElementById("form").style.visibility = "hidden";
+					clearDoctorTable();
+					document.getElementById("doctors-table").style.visibility = "visible";
+					createDoctorsTable(resp.doctors)
 				} else {
 					alert("Doctor`s list is empty");
 				}
@@ -106,7 +114,9 @@
 		}
 
 		function show_calendar() {
-			window.location = "/HelloWeb/GetCalendar";
+			//window.location = "/HelloWeb/GetCalendar";
+			window.open('/HelloWeb/GetCalendar', 'Calendar',
+					'width=750,height=550');
 			//var ob = {};
 			//ob.url = "/HelloWeb/GetCalendar";
 			//ob.type = "GET";
@@ -122,6 +132,8 @@
 
 			//$.ajax(ob);
 		}
+
+
 	</script>
 
 	<!-- Bootstrap core JavaScript
