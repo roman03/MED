@@ -60,6 +60,7 @@ public class Utils {
 			formDetailsJson.put("post", doctor.getPost());
 			formDetailsJson.put("calendarId", doctor.getCalendarId());
 			formDetailsJson.put("hospitalId", doctor.getHospitalId());
+			formDetailsJson.put("id", doctor.getId());
 			jsonArray.add(formDetailsJson);
 		}
 		return jsonArray;

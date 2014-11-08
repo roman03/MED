@@ -25,4 +25,6 @@ public interface DataDao {
 	public List<String> getHospitalsName();
 
 	public Object getHospitalIdByName(String name);
+
+	List<Doctor> getDoctorsFromHospital(Integer hospitaId);
 }

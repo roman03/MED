@@ -58,8 +58,7 @@ public class DataDaoImpl implements DataDao {
 	@Override
 	public Integer getLastId() {
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(Patient.class)
-				.setProjection(Projections.max("id"));
+		Criteria criteria = session.createCriteria(Patient.class).setProjection(Projections.max("id"));
 		return (Integer) criteria.uniqueResult();
 	}
 
@@ -135,5 +134,14 @@ public class DataDaoImpl implements DataDao {
 		Criteria criteria = session.createCriteria(Hospital.class);
 		criteria.add(Restrictions.eq("name", name));
 		return criteria.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Doctor> getDoctorsFromHospital(Integer hospitalId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(Doctor.class);
+		criteria.add(Restrictions.eq("hospitalId", hospitalId));
+		return criteria.list();
 	}
 }
