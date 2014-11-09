@@ -58,8 +58,8 @@
 			td = document.createElement("td");
 			td.appendChild(a);
 			tr.appendChild(td);
-
 			td = document.createElement("td");
+
 			var newCheckBox = document.createElement('input');
 			newCheckBox.type = 'checkbox';
 			newCheckBox.id = 'checkbox' + y;
@@ -116,14 +116,18 @@
 	}
 
 	function createTreatment(list) {
+		if(list.length === 0) {
+			return
+		}
 		var tbody = document.getElementById("appointmentId");
 		for (i = 0; i < list.length; i++) {
 			var dl = document.createElement("dl");
+			dl.className="dl-horizontal";
 			var dt = document.createElement("dt");
 			var dd = document.createElement("dd");
 
 			dt.innerHTML = "Doctor initials:";
-			dd.innerHTML = list[i].name + list[i].lastName;
+			dd.innerHTML = list[i].name + " " + list[i].lastName;
 			dl.appendChild(dt);
 			dl.appendChild(dd);
 
@@ -139,14 +143,16 @@
 			var dd = document.createElement("dd");
 
 			dt.innerHTML = "Calendar";
-			dd.innerHTML = list[i].calendar;
+			if (list[i].calendarId.toString().indexOf('a') === -1) {
+				$('<a href= /HelloWeb/GetCalendar/' + list[i].calendarId +'>'+ "Calendar" +'</a>').appendTo($(dd));
+			} else {
+				dd.innerHTML = list[i].calendarId;
+			}
 			dl.appendChild(dt);
 			dl.appendChild(dd);
 
 			tbody.appendChild(dl);
-
 		}
-
 	}
 
 	function getSelectedDoctors() {
@@ -158,7 +164,7 @@
 				singleObj['name'] = table.rows[i].cells[1].innerHTML;
 				singleObj['lastName'] = table.rows[i].cells[2].innerHTML;
 				singleObj['post'] = table.rows[i].cells[3].innerHTML;
-				singleObj['calendar'] = table.rows[i].cells[4].innerHTML;
+				singleObj['calendarId'] = table.rows[i].cells[4].innerHTML;
 				doctorList.push(singleObj);
 			}
 		}

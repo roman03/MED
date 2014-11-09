@@ -15,6 +15,8 @@ public interface DataDao {
 
 	public List<Patient> getRecentPatinets(Integer[] interval);
 
+	public List<Integer> getPatientDoctors(Integer patientId);
+
 	public Integer getLastId();
 
 	public Patient getPatient(int Id);
@@ -29,7 +31,9 @@ public interface DataDao {
 
 	public Object getHospitalIdByName(String name);
 
-	List<Doctor> getDoctorsFromHospital(Integer hospitaId);
+	public List<Doctor> getDoctorsFromHospital(Integer hospitaId);
+
+	public Doctor getDoctorById(Integer doctorId);
 
 	public Integer insertMedCard(MedCard card) throws Exception;
 }

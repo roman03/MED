@@ -1,9 +1,8 @@
 package com.tutorialspoint;
 
 import java.security.Principal;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dhtmlx.planner.DHXPlanner;
 import com.dhtmlx.planner.DHXSkin;
+import com.dhtmlx.planner.data.DHXDataFormat;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
 import com.tutorials.domain.MedCard;
@@ -67,17 +67,25 @@ public class HelloController {
 		return "loginPage";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/showPatient", method = RequestMethod.GET)
 	public @ResponseBody String showPatient(@RequestParam String patientId) {
+
+		JSONObject responseDetailsJson = new JSONObject();
+
 		Patient patient = dataService.getPatient(Integer.parseInt(patientId));
+		List<Integer> doctorsIdList = dataService.getPatientDoctors(Integer.parseInt(patientId));
+		List<Doctor> doctorList = new ArrayList<Doctor>();
 
-		Map<String, String> pationtMap = Utils.fillPatientMap(patient);
-		Map<String, String> result = new LinkedHashMap<String, String>();
+		for (Integer id : doctorsIdList) {
+			doctorList.add(dataService.getDoctorById(id));
+		}
 
-		result.put("success", patient != null ? "true" : "false");
-		result.put("patient", JSONValue.toJSONString(pationtMap));
+		responseDetailsJson.put("success", patient != null ? "true" : "false");
+		responseDetailsJson.put("patient", JSONValue.toJSONString(Utils.fillPatientMap(patient)));
+		responseDetailsJson.put("doctors", Utils.getDoctors(doctorList));
 
-		return JSONValue.toJSONString(result);
+		return JSONValue.toJSONString(responseDetailsJson);
 	}
 
 	@RequestMapping(value = "/addNewPatient", method = RequestMethod.GET)
@@ -150,11 +158,18 @@ public class HelloController {
 		p.config.setScrollHour(8);
 		p.setWidth(700);
 		p.setHeight(500);
-		// p.load("events", DHXDataFormat.JSON);
+		p.load("events", DHXDataFormat.JSON);
 
 		ModelAndView mnv = new ModelAndView("calendarPage");
 		mnv.addObject("body", p.render());
 		return mnv;
+	}
+
+	@RequestMapping("/events")
+	@ResponseBody
+	public String events(HttpServletRequest request) {
+		CustomEventsManager evs = new CustomEventsManager(request);
+		return evs.run();
 	}
 
 	@SuppressWarnings("unchecked")

@@ -177,4 +177,22 @@ public class DataDaoImpl implements DataDao {
 		}
 
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Integer> getPatientDoctors(Integer patientId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(MedCard.class);
+		criteria.setProjection(Projections.property("doctorId"));
+		criteria.add(Restrictions.eq("patientId", patientId));
+		return criteria.list();
+	}
+
+	@Override
+	public Doctor getDoctorById(Integer doctorId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(Doctor.class);
+		criteria.add(Restrictions.eq("id", doctorId));
+		return (Doctor) criteria.uniqueResult();
+	}
 }

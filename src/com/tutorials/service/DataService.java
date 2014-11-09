@@ -13,6 +13,8 @@ public interface DataService {
 
 	public void updatePatient(Integer Id, Patient patient);
 
+	public List<Integer> getPatientDoctors(Integer patientId);
+
 	public List<Patient> getRecentPatinets(Integer[] interval);
 
 	public Integer getLastId();
@@ -29,7 +31,9 @@ public interface DataService {
 
 	public Object getHospitalIdByName(String name);
 
-	List<Doctor> getDoctorsFromHospital(Integer hospitalId);
+	public List<Doctor> getDoctorsFromHospital(Integer hospitalId);
+
+	public Doctor getDoctorById(Integer doctorId);
 
 	public Integer insertMedCard(MedCard card) throws Exception;
 }

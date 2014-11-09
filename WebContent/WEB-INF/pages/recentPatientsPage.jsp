@@ -71,6 +71,7 @@
 						fillPatientForm(obj.patient, Id);
 						var value = fillProgressBar();
 						setProgressText(value);
+						createTreatment(obj.doctors);
 					} else {
 						alert("Patient not exist");
 					}

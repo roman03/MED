@@ -78,4 +78,14 @@ public class DataServiceImpl implements DataService {
 
 	}
 
+	@Override
+	public List<Integer> getPatientDoctors(Integer patientId) {
+		return dataDao.getPatientDoctors(patientId);
+	}
+
+	@Override
+	public Doctor getDoctorById(Integer doctorId) {
+		return dataDao.getDoctorById(doctorId);
+	}
+
 }
