@@ -123,10 +123,10 @@
 		<dt>DiagnosisId at arrived</dt>
 		<dd id="did"></dd>
 	</dl>
+	<hr class="divider">
 	<div id="appointmentId">
 		<!-- appointment -->
 	</div>
-	<hr class="divider">
 	<hr class="divider">
 
 	<div class="row">
@@ -198,6 +198,7 @@
 		ob.success = function(response) {
 			var obj = jQuery.parseJSON(response)
 			if (obj.sucess === true) {
+				setProgressText(fillProgressBar());
 				document.getElementById('labelSuccess').style.visibility = "visible";
 				$(labelSuccess).text("good");
 				setTimeout(hideLabel, 4000)
