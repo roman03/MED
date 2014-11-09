@@ -1,4 +1,3 @@
-<html lang="en">
 <head>
 <title>MED System</title>
 </head>
