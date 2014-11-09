@@ -28,7 +28,7 @@ import com.dhtmlx.planner.DHXSkin;
 import com.dhtmlx.planner.data.DHXDataFormat;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
-import com.tutorials.domain.MedCard;
+import com.tutorials.domain.Relation;
 import com.tutorials.domain.Patient;
 import com.tutorials.service.DataService;
 import com.tutorialspoint.utils.Utils;
@@ -182,7 +182,7 @@ public class HelloController {
 		log.info("doctors " + doctors);
 		try {
 			for (int i = 0; i < doctors.length; i++) {
-				MedCard card = new MedCard();
+				Relation card = new Relation();
 				card.setPatientId(Integer.parseInt(patient));
 				card.setDoctorId(Integer.parseInt(doctors[i]));
 				dataService.insertMedCard(card);

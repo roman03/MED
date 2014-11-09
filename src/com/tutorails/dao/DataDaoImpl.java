@@ -21,7 +21,7 @@ import com.dhtmlx.planner.DHXEvent;
 import com.dhtmlx.planner.DHXStatus;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
-import com.tutorials.domain.MedCard;
+import com.tutorials.domain.Relation;
 import com.tutorials.domain.Patient;
 
 @Repository
@@ -148,7 +148,7 @@ public class DataDaoImpl implements DataDao {
 	}
 
 	@Override
-	public Integer insertMedCard(MedCard card) throws Exception {
+	public Integer insertMedCard(Relation card) throws Exception {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
 		session.saveOrUpdate(card);
@@ -182,7 +182,7 @@ public class DataDaoImpl implements DataDao {
 	@Override
 	public List<Integer> getPatientDoctors(Integer patientId) {
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(MedCard.class);
+		Criteria criteria = session.createCriteria(Relation.class);
 		criteria.setProjection(Projections.property("doctorId"));
 		criteria.add(Restrictions.eq("patientId", patientId));
 		return criteria.list();

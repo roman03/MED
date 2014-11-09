@@ -5,7 +5,7 @@ import java.util.List;
 import com.dhtmlx.planner.DHXEv;
 import com.dhtmlx.planner.DHXStatus;
 import com.tutorials.domain.Doctor;
-import com.tutorials.domain.MedCard;
+import com.tutorials.domain.Relation;
 import com.tutorials.domain.Patient;
 
 public interface DataDao {
@@ -35,5 +35,5 @@ public interface DataDao {
 
 	public Doctor getDoctorById(Integer doctorId);
 
-	public Integer insertMedCard(MedCard card) throws Exception;
+	public Integer insertMedCard(Relation card) throws Exception;
 }

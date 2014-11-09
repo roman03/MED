@@ -9,7 +9,7 @@ import com.dhtmlx.planner.DHXEv;
 import com.dhtmlx.planner.DHXStatus;
 import com.tutorails.dao.DataDao;
 import com.tutorials.domain.Doctor;
-import com.tutorials.domain.MedCard;
+import com.tutorials.domain.Relation;
 import com.tutorials.domain.Patient;
 
 @Service
@@ -68,7 +68,7 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public Integer insertMedCard(MedCard card) throws Exception {
+	public Integer insertMedCard(Relation card) throws Exception {
 		return dataDao.insertMedCard(card);
 	}
 

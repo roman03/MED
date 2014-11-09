@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MedCard")
-public class MedCard {
+@Table(name = "relation")
+public class Relation {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue

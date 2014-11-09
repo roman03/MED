@@ -23,9 +23,6 @@ public class Doctor {
 	@Column(name = "POST")
 	private String post;
 
-	@Column(name = "PATIENTID")
-	private Integer patientId;
-
 	@Column(name = "CALENDARID")
 	private Integer calendarId;
 
@@ -62,14 +59,6 @@ public class Doctor {
 
 	public void setPost(String post) {
 		this.post = post;
-	}
-
-	public Integer getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
 	}
 
 	public Integer getCalendarId() {
