@@ -1,32 +1,34 @@
-	<div class="container table-responsive hiden " id="doctors-table">
-		<table id="table1"
-			class="table-bordered table bs-example table-hover "
-			data-row-style="rowStyle">
-			<thead>
-				<tr>
-					<td><strong>Id</strong></td>
-					<td><strong>Name</strong></td>
-					<td><strong>Last Name</strong></td>
-					<td><strong>Post</strong></td>
-					<td><strong>Calendar</strong></td>
-					<td><strong>Select</strong></td>
-				</tr>
-			</thead>
-			<tbody id="tableBody">
-			</tbody>
-		</table>
 
-		<div class="row">
-			<div class="col-md-6">
-				<button type="button" class="btn btn-success " style="width:100%" onclick="Done();">Done</button>
-			</div>
-			<div class="col-md-6">
-				<button type="button" class="btn btn-info " style="width:100%" onclick="clearDoctorTable();">Cancel</button>
-			</div>
+<div class="container table-responsive hiden " id="doctors-table">
+	<table id="table1" class="table-bordered table bs-example table-hover "
+		data-row-style="rowStyle">
+		<thead>
+			<tr>
+				<td><strong>Id</strong></td>
+				<td><strong>Name</strong></td>
+				<td><strong>Last Name</strong></td>
+				<td><strong>Post</strong></td>
+				<td><strong>Calendar</strong></td>
+				<td><strong>Select</strong></td>
+			</tr>
+		</thead>
+		<tbody id="tableBody">
+		</tbody>
+	</table>
+
+	<div class="row">
+		<div class="col-md-6">
+			<button type="button" class="btn btn-success " style="width: 100%"
+				onclick="Done();">Done</button>
+		</div>
+		<div class="col-md-6">
+			<button type="button" class="btn btn-info " style="width: 100%"
+				onclick="clearDoctorTable();">Cancel</button>
 		</div>
 	</div>
-	
-	<script>
+</div>
+
+<script>
 	function createDoctorsTable(doctorList) {
 		var tbody = document.getElementById("tableBody"), tr, td, i;
 
@@ -68,15 +70,15 @@
 		}
 
 	}
-	
+
 	function clearDoctorTable() {
 		document.getElementById("doctors-table").style.visibility = "hidden";
 		table = document.getElementById("table1");
-		while(table.tBodies.tableBody.rows.length > 0) {
-			  table.deleteRow(1);
-			}
+		while (table.tBodies.tableBody.rows.length > 0) {
+			table.deleteRow(1);
+		}
 	}
-	
+
 	function Done() {
 		var selectedDoctors = [];
 		table = document.getElementById("table1");
@@ -97,7 +99,9 @@
 		ob.success = function(response) {
 			var obj = jQuery.parseJSON(response)
 			if (obj.sucess === true) {
+				var list = getSelectedDoctors();
 				clearDoctorTable();
+				createTreatment(list);
 			} else {
 				alert("Can`t add doctor to patient");
 			}
@@ -106,9 +110,58 @@
 		$.ajax(ob);
 
 	}
-	
+
 	function getDoctorId(row) {
 		return row.children[0].innerText
 	}
-	
-	</script>
+
+	function createTreatment(list) {
+		var tbody = document.getElementById("appointmentId");
+		for (i = 0; i < list.length; i++) {
+			var dl = document.createElement("dl");
+			var dt = document.createElement("dt");
+			var dd = document.createElement("dd");
+
+			dt.innerHTML = "Doctor initials:";
+			dd.innerHTML = list[i].name + list[i].lastName;
+			dl.appendChild(dt);
+			dl.appendChild(dd);
+
+			var dt = document.createElement("dt");
+			var dd = document.createElement("dd");
+
+			dt.innerHTML = "Post";
+			dd.innerHTML = list[i].post;
+			dl.appendChild(dt);
+			dl.appendChild(dd);
+
+			var dt = document.createElement("dt");
+			var dd = document.createElement("dd");
+
+			dt.innerHTML = "Calendar";
+			dd.innerHTML = list[i].calendar;
+			dl.appendChild(dt);
+			dl.appendChild(dd);
+
+			tbody.appendChild(dl);
+
+		}
+
+	}
+
+	function getSelectedDoctors() {
+		var doctorList = [];
+		table = document.getElementById("table1");
+		for (i = 1; i <= table.tBodies.tableBody.rows.length; i++) {
+			if (table.rows[i].cells[5].firstChild.checked === true) {
+				var singleObj = {}
+				singleObj['name'] = table.rows[i].cells[1].innerHTML;
+				singleObj['lastName'] = table.rows[i].cells[2].innerHTML;
+				singleObj['post'] = table.rows[i].cells[3].innerHTML;
+				singleObj['calendar'] = table.rows[i].cells[4].innerHTML;
+				doctorList.push(singleObj);
+			}
+		}
+		return doctorList;
+	}
+</script>
