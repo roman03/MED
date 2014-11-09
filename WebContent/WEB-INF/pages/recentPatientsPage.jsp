@@ -17,10 +17,10 @@
 	<div id="header" style="width: screen.width;">
 		<%@ include file="../components/header.jsp"%>
 	</div>
-	<div class="table-responsive " id="table">
+	<div class="table-responsive " id="table" style="width:90%;">
 		<table id="events-table"
 			class="table-bordered table bs-example table-hover"
-			data-row-style="rowStyle">
+			data-row-style="rowStyle"  style="margin-left: 5%">
 			<thead>
 				<tr>
 					<td id="Id"><strong>Id</strong></td>
@@ -28,7 +28,7 @@
 					<td><strong>First Name</strong></td>
 					<td><strong>Last Name</strong></td>
 					<td><strong>Age</strong></td>
-					<td><strong>Diagnosis</strong></td>
+					<td><strong>Timestamp</strong></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,7 +39,7 @@
 						<td>${patient.firstname}</td>
 						<td>${patient.lastname}</td>
 						<td>${patient.age}</td>
-						<td>${patient.diagnosis}</td>
+						<td>${patient.dateArrived}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -1,4 +1,4 @@
-
+<%@ include file="addTreatment.jsp"%>
 <div class="container table-responsive hiden " id="doctors-table">
 	<table id="table1" class="table-bordered table bs-example table-hover "
 		data-row-style="rowStyle">
@@ -91,10 +91,9 @@
 		var ob = {};
 		ob.url = "/HelloWeb/addDoctor"
 		ob.type = "POST";
-		var pat = patientId.value;
 		ob.data = {
 			doctors : selectedDoctors,
-			patient : pat
+			patient : patientId.value
 		};
 		ob.success = function(response) {
 			var obj = jQuery.parseJSON(response)
@@ -151,6 +150,37 @@
 			dl.appendChild(dt);
 			dl.appendChild(dd);
 
+			var dt = document.createElement("dt");
+			var dd = document.createElement("dd");
+			dt.innerHTML = "Treatment";
+			dl.appendChild(dt);
+
+			var div = document.createElement("div");
+			div.className="row";
+			$(div).css("margin-left", "auto");
+
+			var element = document.createElement("input");
+			element.type = "button";
+			element.value = "Add";
+			element.setAttribute("data-doctorId", list[i].id);
+			element.setAttribute("data-patientId", patientId.value);
+			element.onclick = addTreatment;
+			element.className = "btn btn-primary";
+
+			div.appendChild(element);
+
+			var element = document.createElement("input");
+			element.type = "button";
+			element.value = "View";
+			element.setAttribute("data-doctorId", list[i].id);
+			element.setAttribute("data-patientId", patientId.value);
+			element.onclick = viewTreatment;
+			element.className = "btn btn-success";
+			$(element).css("margin-left", "5px");
+			div.appendChild(element);
+
+			dd.appendChild(div);
+			dl.appendChild(dd);
 			tbody.appendChild(dl);
 		}
 	}
@@ -169,5 +199,13 @@
 			}
 		}
 		return doctorList;
+	}
+
+	function viewTreatment() {
+		//alert(this.getAttribute("data-doctorId"));
+		$("#myModal").modal("show");
+	}
+
+	function addTreatment() {
 	}
 </script>
