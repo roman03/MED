@@ -23,6 +23,9 @@ public class Treatment {
 	@Column(name = "ANALYZESID")
 	private Integer analyzesId;
 
+	@Column(name = "PROCEDURESID")
+	private Integer proceduresId;
+
 	public Integer getId() {
 		return id;
 	}
@@ -53,6 +56,14 @@ public class Treatment {
 
 	public void setAnalyzesId(Integer analyzesId) {
 		this.analyzesId = analyzesId;
+	}
+
+	public Integer getProceduresId() {
+		return proceduresId;
+	}
+
+	public void setProceduresId(Integer proceduresId) {
+		this.proceduresId = proceduresId;
 	}
 
 }

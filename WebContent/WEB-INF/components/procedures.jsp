@@ -50,7 +50,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" type="submit" id="sendBtn"
+					<button type="button" type="submit" id="sendBtn1"
 						class="btn btn-primary">Submit</button>
 				</div>
 			</div>
@@ -59,3 +59,29 @@
 	</form>
 
 </div>
+<script>
+$(function() {
+	$('#sendBtn1').click(
+			function(e) {
+				e.preventDefault();
+
+				var ob = {};
+				ob.url = "/HelloWeb/sendProcedures";
+				ob.type = "POST";
+				docId = document.getElementById("myModal").getAttribute("data-doctorId");
+				patId = document.getElementById("myModal").getAttribute("data-patientId");
+				ob.data = {
+					title : titleProcedurId.value,
+					place : placeProcedureId.value,
+					time : procedureTimeId.value,
+					patientId : patId,
+					doctorId : docId
+				};
+				ob.success = function(response) {
+					$('#myModal').modal('toggle');
+				};
+
+				$.ajax(ob);
+			});
+});
+</script>
