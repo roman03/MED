@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="resources/bootstrap-datetimepicker.min.css" />
 
 <div style="display: none; margin-top: 10px;" id="remediesId">
-	<form class="form-horizontal" role="form" >
+	<form class="form-horizontal" role="form">
 		<fieldset>
 			<legend>Remedies</legend>
 			<div class="form-group">
@@ -48,7 +48,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="button" type="submit" id="sendBtn"
+					<button type="button" type="submit" id="sendBtn2"
 						class="btn btn-primary">Submit</button>
 				</div>
 			</div>
@@ -57,3 +57,31 @@
 	</form>
 
 </div>
+<script>
+	$(function() {
+		$('#sendBtn2').click(
+				function(e) {
+					e.preventDefault();
+
+					var ob = {};
+					ob.url = "/HelloWeb/sendRemedies";
+					ob.type = "POST";
+					docId = document.getElementById("myModal").getAttribute(
+							"data-doctorId");
+					patId = document.getElementById("myModal").getAttribute(
+							"data-patientId");
+					ob.data = {
+						title : titleRemediesId.value,
+						dosage : dosageId.value,
+						time : remediesTimeId.value,
+						patientId : patId,
+						doctorId : docId
+					};
+					ob.success = function(response) {
+						$('#myModal').modal('toggle');
+					};
+
+					$.ajax(ob);
+				});
+	});
+</script>

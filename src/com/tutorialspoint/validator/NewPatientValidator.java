@@ -10,7 +10,7 @@ import com.tutorials.domain.Patient;
 public class NewPatientValidator implements Validator {
 
 	@Override
-	public boolean supports(Class clazz) {
+	public boolean supports(@SuppressWarnings("rawtypes") Class clazz) {
 		return Patient.class.isAssignableFrom(clazz);
 	}
 
@@ -19,18 +19,15 @@ public class NewPatientValidator implements Validator {
 		Patient patient = (Patient) arg0;
 
 		if (patient.getName() == null || patient.getName().isEmpty()) {
-			errors.rejectValue("name", "Name can`t be empty",
-					"Name can`t be empty");
+			errors.rejectValue("name", "Name can`t be empty", "Name can`t be empty");
 		}
 
 		if (patient.getFirstname() == null || patient.getFirstname().isEmpty()) {
-			errors.rejectValue("firstname", "First Name can`t be empty",
-					"First Name can`t be empty");
+			errors.rejectValue("firstname", "First Name can`t be empty", "First Name can`t be empty");
 		}
 
 		if (patient.getLastname() == null || patient.getLastname().isEmpty()) {
-			errors.rejectValue("lastname", "Last Name can`t be empty",
-					"Last Name can`t be empty");
+			errors.rejectValue("lastname", "Last Name can`t be empty", "Last Name can`t be empty");
 		}
 
 	}

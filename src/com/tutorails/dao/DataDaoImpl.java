@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -25,6 +26,7 @@ import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
 import com.tutorials.domain.Procedures;
 import com.tutorials.domain.Relation;
+import com.tutorials.domain.Remedies;
 import com.tutorials.domain.Treatment;
 
 @Repository
@@ -32,6 +34,8 @@ public class DataDaoImpl implements DataDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
+
+	private static final Logger log = Logger.getLogger(DataDao.class);
 
 	@Override
 	@Transactional
@@ -41,6 +45,7 @@ public class DataDaoImpl implements DataDao {
 		try {
 			session.saveOrUpdate(patient);
 		} catch (Exception ex) {
+			log.error("insert patient exeption " + ex.getMessage());
 			return -1;
 		}
 		tx.commit();
@@ -173,7 +178,8 @@ public class DataDaoImpl implements DataDao {
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
-				tx.rollback();
+				log.error("update patient exeption " + e.getMessage());
+			tx.rollback();
 			e.printStackTrace();
 		} finally {
 			session.close();
@@ -214,6 +220,7 @@ public class DataDaoImpl implements DataDao {
 		try {
 			session.saveOrUpdate(analizes);
 		} catch (Exception ex) {
+			log.error("add analyzes execption " + ex.getMessage());
 			return -1;
 		}
 		tx.commit();
@@ -230,6 +237,7 @@ public class DataDaoImpl implements DataDao {
 		try {
 			session.saveOrUpdate(treatment);
 		} catch (Exception ex) {
+			log.error("add Treatment exception " + ex.getMessage());
 			return -1;
 		}
 		tx.commit();
@@ -245,10 +253,27 @@ public class DataDaoImpl implements DataDao {
 		try {
 			session.saveOrUpdate(procedure);
 		} catch (Exception ex) {
+			log.error("add procedures exception " + ex.getMessage());
 			return -1;
 		}
 		tx.commit();
 		Serializable id = session.getIdentifier(procedure);
+		session.close();
+		return (Integer) id;
+	}
+
+	@Override
+	public Integer addRemedies(Remedies remedies) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.saveOrUpdate(remedies);
+		} catch (Exception ex) {
+			log.error("add remedies exeption " + ex.getMessage());
+			return -1;
+		}
+		tx.commit();
+		Serializable id = session.getIdentifier(remedies);
 		session.close();
 		return (Integer) id;
 	}

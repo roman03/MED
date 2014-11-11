@@ -45,6 +45,7 @@
 				<value>com.tutorials.domain.Treatment</value>
 				<value>com.tutorials.domain.Analyzes</value>
 				<value>com.tutorials.domain.Procedures</value>
+				<value>com.tutorials.domain.Remedies</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

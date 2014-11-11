@@ -33,6 +33,7 @@ import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
 import com.tutorials.domain.Procedures;
 import com.tutorials.domain.Relation;
+import com.tutorials.domain.Remedies;
 import com.tutorials.domain.Treatment;
 import com.tutorials.service.DataService;
 import com.tutorialspoint.misc.TREATMENT_ENUM;
@@ -115,6 +116,31 @@ public class HelloController {
 		Procedures procedures = Utils.createProcedures(title, place, convertedTime);
 		Integer proceduresId = dataService.addProcedures(procedures);
 		Treatment treatment = Utils.createTreatment(proceduresId, doctorId, patientId, TREATMENT_ENUM.PROCEDURES);
+
+		dataService.addTreatment(treatment);
+
+		responseDetailsJson.put("success", true);
+		return JSONValue.toJSONString(responseDetailsJson);
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/sendRemedies", method = RequestMethod.POST)
+	public @ResponseBody String processRemedies(@RequestParam(value = "title") String title,
+			@RequestParam(value = "dosage") String dosage, @RequestParam(value = "time") String time,
+			@RequestParam(value = "patientId") String patientId, @RequestParam(value = "doctorId") String doctorId) {
+
+		JSONObject responseDetailsJson = new JSONObject();
+
+		Calendar convertedTime = Utils.convertStringToCalendar(time, "dd/MM/yyyy HH:mm a");
+
+		if (convertedTime == null) {
+			responseDetailsJson.put("success", false);
+			return JSONValue.toJSONString(responseDetailsJson);
+		}
+
+		Remedies remedies = Utils.createRemedies(title, dosage, convertedTime);
+		Integer remediesId = dataService.addRemedies(remedies);
+		Treatment treatment = Utils.createTreatment(remediesId, doctorId, patientId, TREATMENT_ENUM.REMIDIES);
 
 		dataService.addTreatment(treatment);
 

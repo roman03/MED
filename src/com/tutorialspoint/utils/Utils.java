@@ -17,6 +17,7 @@ import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
 import com.tutorials.domain.Procedures;
+import com.tutorials.domain.Remedies;
 import com.tutorials.domain.Treatment;
 import com.tutorialspoint.misc.TREATMENT_ENUM;
 
@@ -114,6 +115,16 @@ public class Utils {
 		return procedures;
 	}
 
+	public static Remedies createRemedies(String title, String dosage, Calendar time) {
+		Remedies remedies = new Remedies();
+
+		remedies.setTitle(title);
+		remedies.setTime(time);
+		remedies.setDosage(dosage);
+
+		return remedies;
+	}
+
 	public static Treatment createTreatment(Integer Id, String doctorId, String patientId, TREATMENT_ENUM type) {
 		Treatment treatment = new Treatment();
 		switch (type) {
@@ -124,7 +135,7 @@ public class Utils {
 			treatment.setProceduresId(Id);
 			break;
 		case REMIDIES:
-			// treatment.setAnalyzesId(Id);
+			treatment.setRemediesId(Id);
 			break;
 		}
 
@@ -132,5 +143,4 @@ public class Utils {
 		treatment.setPatientId(Integer.valueOf(patientId));
 		return treatment;
 	}
-
 }

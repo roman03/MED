@@ -10,6 +10,7 @@ import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
 import com.tutorials.domain.Procedures;
 import com.tutorials.domain.Relation;
+import com.tutorials.domain.Remedies;
 import com.tutorials.domain.Treatment;
 
 public interface DataDao {
@@ -48,4 +49,6 @@ public interface DataDao {
 	public Integer addTreatment(Treatment treatment);
 
 	public Integer addProcedures(Procedures procedure);
+
+	public Integer addRemedies(Remedies remedies);
 }
