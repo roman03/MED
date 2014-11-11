@@ -109,23 +109,8 @@
 		}
 
 		function show_calendar() {
-			//window.location = "/HelloWeb/GetCalendar";
 			window.open('/HelloWeb/GetCalendar', 'Calendar',
 					'width=750,height=550');
-			//var ob = {};
-			//ob.url = "/HelloWeb/GetCalendar";
-			//ob.type = "GET";
-			//ob.success = function(response) {
-			//var resp = jQuery.parseJSON(response);
-			//if (resp.sucess === "true") {
-			//document.getElementById("form").style.visibility = "hidden";
-			//	alert("ok");
-			//} else {
-			//	alert("Doctor`s list is empty");
-			//}
-			//};
-
-			//$.ajax(ob);
 		}
 
 
