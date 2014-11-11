@@ -84,9 +84,4 @@
 					$.ajax(ob);
 				});
 	});
-
-	$('#myModal').on('hidden.bs.modal', function() {
-		$("#analyzesId").hide();
-		$("#proceduresId").hide();
-	})
 </script>

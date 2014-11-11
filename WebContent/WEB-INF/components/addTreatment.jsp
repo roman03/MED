@@ -24,6 +24,7 @@
 
 				<%@ include file="analyzes.jsp"%>
 				<%@ include file="procedures.jsp"%>
+				<%@ include file="remedies.jsp"%>
 
 			</div>
 
@@ -37,13 +38,27 @@
 </div>
 <script>
 	function addAnalyzes() {
-		$("#procesuresId").hide();
+		hideAll();
 		$("#analyzesId").show();
 	}
 
 	function addProcedyres() {
-		$("#analyzesId").hide();
+		hideAll();
 		$("#procesuresId").show();
 	}
 
+	function addRemedies() {
+		hideAll();
+		$("#remediesId").show();
+	}
+
+	function hideAll() {
+		$("#analyzesId").hide();
+		$("#procesuresId").hide();
+		$("#remediesId").hide();
+	}
+
+	$('#myModal').on('hidden.bs.modal', function() {
+		hideAll();
+	})
 </script>
