@@ -1,7 +1,4 @@
 
-
-
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -26,6 +23,7 @@
 				</div>
 
 				<%@ include file="analyzes.jsp"%>
+				<%@ include file="procedures.jsp"%>
 
 			</div>
 
@@ -39,42 +37,13 @@
 </div>
 <script>
 	function addAnalyzes() {
+		$("#procesuresId").hide();
 		$("#analyzesId").show();
 	}
 
-	$(function() {
-		$('#sendBtn').click(function(e) {
-			e.preventDefault();
-
-			var ob = {};
-			ob.url = "/HelloWeb/sendAnalyzes";
-			ob.type = "POST";
-			docId = document.getElementById("myModal").getAttribute("data-doctorId");
-			patId = document.getElementById("myModal").getAttribute("data-patientId");
-			ob.data = {
-				title : titleId.value,
-				place : placeId.value,
-				time : analyzesTimeId.value,
-				patientId : patId,
-				doctorId : docId
-			};
-			ob.success = function(response) {
-				$('#myModal').modal('toggle');
-			};
-
-			$.ajax(ob);
-		});
-	});
-	
-	$('#myModal').on('hidden.bs.modal', function () {
+	function addProcedyres() {
 		$("#analyzesId").hide();
-	})
-		
-	/*$('#myModal').on('show.bs.modal', function(e) {
+		$("#procesuresId").show();
+	}
 
-	    //get data-id attribute of the clicked element
-	    var bookId = $(e.relatedTarget).data('book-id');
-
-	    //populate the textbox
-	});*/
 </script>

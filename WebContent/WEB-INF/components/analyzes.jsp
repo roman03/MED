@@ -56,5 +56,37 @@
 
 		</fieldset>
 	</form>
-
 </div>
+<script>
+	$(function() {
+		$('#sendBtn').click(
+				function(e) {
+					e.preventDefault();
+
+					var ob = {};
+					ob.url = "/HelloWeb/sendAnalyzes";
+					ob.type = "POST";
+					docId = document.getElementById("myModal").getAttribute(
+							"data-doctorId");
+					patId = document.getElementById("myModal").getAttribute(
+							"data-patientId");
+					ob.data = {
+						title : titleId.value,
+						place : placeId.value,
+						time : analyzesTimeId.value,
+						patientId : patId,
+						doctorId : docId
+					};
+					ob.success = function(response) {
+						$('#myModal').modal('toggle');
+					};
+
+					$.ajax(ob);
+				});
+	});
+
+	$('#myModal').on('hidden.bs.modal', function() {
+		$("#analyzesId").hide();
+		$("#proceduresId").hide();
+	})
+</script>
