@@ -4,9 +4,12 @@ import java.util.List;
 
 import com.dhtmlx.planner.DHXEv;
 import com.dhtmlx.planner.DHXStatus;
+import com.tutorials.domain.Analyzes;
 import com.tutorials.domain.Doctor;
-import com.tutorials.domain.Relation;
+import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
+import com.tutorials.domain.Relation;
+import com.tutorials.domain.Treatment;
 
 public interface DataDao {
 	public int insertRow(Patient patient);
@@ -31,9 +34,15 @@ public interface DataDao {
 
 	public Object getHospitalIdByName(String name);
 
+	public Hospital getHospital(Integer hospitalId);
+
 	public List<Doctor> getDoctorsFromHospital(Integer hospitaId);
 
 	public Doctor getDoctorById(Integer doctorId);
 
 	public Integer insertMedCard(Relation card) throws Exception;
+
+	public Integer addAnalyzes(Analyzes analizes);
+
+	public Integer addTreatment(Treatment treatment);
 }

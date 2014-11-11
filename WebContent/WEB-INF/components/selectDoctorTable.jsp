@@ -203,9 +203,11 @@
 
 	function viewTreatment() {
 		//alert(this.getAttribute("data-doctorId"));
-		$("#myModal").modal("show");
 	}
 
 	function addTreatment() {
+		$("#myModal").modal("show");
+		document.getElementById("myModal").setAttribute("data-doctorId", this.getAttribute("data-doctorId"));
+		document.getElementById("myModal").setAttribute("data-patientId", this.getAttribute("data-patientId"));
 	}
 </script>

@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import com.dhtmlx.planner.DHXEv;
 import com.dhtmlx.planner.DHXStatus;
 import com.tutorails.dao.DataDao;
+import com.tutorials.domain.Analyzes;
 import com.tutorials.domain.Doctor;
-import com.tutorials.domain.Relation;
+import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
+import com.tutorials.domain.Relation;
+import com.tutorials.domain.Treatment;
 
 @Service
 public class DataServiceImpl implements DataService {
@@ -86,6 +89,21 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public Doctor getDoctorById(Integer doctorId) {
 		return dataDao.getDoctorById(doctorId);
+	}
+
+	@Override
+	public Hospital getHospital(Integer hospitalId) {
+		return dataDao.getHospital(hospitalId);
+	}
+
+	@Override
+	public Integer addAnalyzes(Analyzes analizes) {
+		return dataDao.addAnalyzes(analizes);
+	}
+
+	@Override
+	public Integer addTreatment(Treatment treatment) {
+		return dataDao.addTreatment(treatment);
 	}
 
 }

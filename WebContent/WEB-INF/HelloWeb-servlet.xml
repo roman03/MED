@@ -43,6 +43,7 @@
 				<value>com.tutorials.domain.Event</value>
 				<value>com.tutorials.domain.Relation</value>
 				<value>com.tutorials.domain.Treatment</value>
+				<value>com.tutorials.domain.Analyzes</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

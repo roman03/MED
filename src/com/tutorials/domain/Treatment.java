@@ -21,13 +21,7 @@ public class Treatment {
 	private Integer doctorId;
 
 	@Column(name = "ANALYZESID")
-	private Integer analyzezId;
-
-	@Column(name = "PROCEDYRESID")
-	private Integer procedyresId;
-
-	@Column(name = "REMEDIESID")
-	private Integer remediesId;
+	private Integer analyzesId;
 
 	public Integer getId() {
 		return id;
@@ -53,35 +47,12 @@ public class Treatment {
 		this.doctorId = doctorId;
 	}
 
-	public Integer getTreatmentId() {
-		return analyzezId;
+	public Integer getAnalyzesId() {
+		return analyzesId;
 	}
 
-	public void setTreatmentId(Integer analyzezId) {
-		this.analyzezId = analyzezId;
+	public void setAnalyzesId(Integer analyzesId) {
+		this.analyzesId = analyzesId;
 	}
 
-	public Integer getAnalyzezId() {
-		return analyzezId;
-	}
-
-	public void setAnalyzezId(Integer analyzezId) {
-		this.analyzezId = analyzezId;
-	}
-
-	public Integer getProcedyresId() {
-		return procedyresId;
-	}
-
-	public void setProcedyresId(Integer procedyresId) {
-		this.procedyresId = procedyresId;
-	}
-
-	public Integer getRemediesId() {
-		return remediesId;
-	}
-
-	public void setRemediesId(Integer remediesId) {
-		this.remediesId = remediesId;
-	}
 }

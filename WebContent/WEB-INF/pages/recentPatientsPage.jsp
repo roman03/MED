@@ -68,7 +68,7 @@
 				ob.success = function(response) {
 					var obj = jQuery.parseJSON(response)
 					if (obj.success === "true") {
-						fillPatientForm(obj.patient, Id);
+						fillPatientForm(obj.patient, obj.hospital, Id);
 						var value = fillProgressBar();
 						setProgressText(value);
 						createTreatment(obj.doctors);
@@ -88,6 +88,9 @@
 			ob.url = "/HelloWeb/DoctorList";
 			ob.type = "GET";
 			var hospitalID = hospitalId.value;
+			if(hospitalID === "undefined") {
+				hospitalID = null;
+			}
 			ob.data = {
 				hospital : hospitalID
 			};

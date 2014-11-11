@@ -2,6 +2,7 @@ package com.tutorialspoint;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +27,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dhtmlx.planner.DHXPlanner;
 import com.dhtmlx.planner.DHXSkin;
 import com.dhtmlx.planner.data.DHXDataFormat;
+import com.tutorials.domain.Analyzes;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
-import com.tutorials.domain.Relation;
 import com.tutorials.domain.Patient;
+import com.tutorials.domain.Relation;
+import com.tutorials.domain.Treatment;
 import com.tutorials.service.DataService;
 import com.tutorialspoint.utils.Utils;
 import com.tutorialspoint.validator.NewPatientValidator;
@@ -68,6 +71,31 @@ public class HelloController {
 	}
 
 	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/sendAnalyzes", method = RequestMethod.POST)
+	public @ResponseBody String processAnalizes(@RequestParam(value = "title") String title,
+			@RequestParam(value = "place") String place, @RequestParam(value = "time") String time,
+			@RequestParam(value = "patientId") String patientId, @RequestParam(value = "doctorId") String doctorId) {
+
+		JSONObject responseDetailsJson = new JSONObject();
+
+		Calendar convertedTime = Utils.convertStringToCalendar(time, "dd/MM/yyyy HH:mm a");
+
+		if (convertedTime == null) {
+			responseDetailsJson.put("success", false);
+			return JSONValue.toJSONString(responseDetailsJson);
+		}
+
+		Analyzes analizes = Utils.createAnalizes(title, place, convertedTime);
+		Integer analyzesId = dataService.addAnalyzes(analizes);
+		Treatment treatment = Utils.createTreatment(analyzesId, doctorId, patientId);
+
+		dataService.addTreatment(treatment);
+
+		responseDetailsJson.put("success", true);
+		return JSONValue.toJSONString(responseDetailsJson);
+	}
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/showPatient", method = RequestMethod.GET)
 	public @ResponseBody String showPatient(@RequestParam String patientId) {
 
@@ -81,9 +109,11 @@ public class HelloController {
 			doctorList.add(dataService.getDoctorById(id));
 		}
 
+		Hospital hospital = dataService.getHospital(patient.getHospitalId());
 		responseDetailsJson.put("success", patient != null ? "true" : "false");
 		responseDetailsJson.put("patient", JSONValue.toJSONString(Utils.fillPatientMap(patient)));
 		responseDetailsJson.put("doctors", Utils.getDoctors(doctorList));
+		responseDetailsJson.put("hospital", JSONValue.toJSONString(Utils.fillHospitalMap(hospital)));
 
 		return JSONValue.toJSONString(responseDetailsJson);
 	}
@@ -92,11 +122,7 @@ public class HelloController {
 	public String addPatientForm(ModelMap model, Principal principal, HttpSession session) {
 		model.addAttribute("patient", new Patient());
 		List<String> h = dataService.getHospitalsName();
-		log.warn("warning");
-		log.debug("debug");
-		log.info("info");
-		log.error("error");
-		log.fatal("fatal");
+
 		model.addAttribute("hospitals", h);
 		return "addNewPatientPage";
 	}
@@ -137,8 +163,8 @@ public class HelloController {
 			responseDetailsJson.put("sucess", "false");
 			return JSONValue.toJSONString(responseDetailsJson);
 		}
-
-		Integer hospitalId = ((Hospital) dataService.getHospitalIdByName(hospital)).getId();
+		Hospital s = ((Hospital) dataService.getHospitalIdByName(hospital));
+		Integer hospitalId = s.getId();
 
 		List<Doctor> doctorList = dataService.getDoctorsFromHospital(hospitalId);
 

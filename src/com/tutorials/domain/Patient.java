@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Patients")
@@ -63,7 +64,7 @@ public class Patient {
 	@Column(name = "HOSPITALID")
 	private Integer hospitalId;
 
-	@Column(name = "HOSPITALNAME")
+	@Transient
 	private String hospitalName;
 
 	public void setPatient(Patient patient) {

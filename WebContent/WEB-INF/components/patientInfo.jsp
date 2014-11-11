@@ -142,7 +142,7 @@
 </div>
 
 <script>
-	function fillPatientForm(patientJSON, id) {
+	function fillPatientForm(patientJSON, hospitalJSON, id) {
 		var patient = jQuery.parseJSON(patientJSON);
 		nameId.value = patient.name;
 		firstNameId.value = patient.firstName;
@@ -152,7 +152,11 @@
 		adressId.value = patient.address;
 		aboutId.value = patient.workplace;
 		$('#did').text(patient.diagnosis);
-		hospitalId.value = patient.hospitalName;
+		
+		var hospital = jQuery.parseJSON(hospitalJSON);
+		if(hospital != null) {
+		hospitalId.value = hospital.name;
+		}
 
 		patientId.value = id;
 	}

@@ -19,10 +19,12 @@ import org.springframework.stereotype.Repository;
 import com.dhtmlx.planner.DHXEv;
 import com.dhtmlx.planner.DHXEvent;
 import com.dhtmlx.planner.DHXStatus;
+import com.tutorials.domain.Analyzes;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
-import com.tutorials.domain.Relation;
 import com.tutorials.domain.Patient;
+import com.tutorials.domain.Relation;
+import com.tutorials.domain.Treatment;
 
 @Repository
 public class DataDaoImpl implements DataDao {
@@ -194,5 +196,44 @@ public class DataDaoImpl implements DataDao {
 		Criteria criteria = session.createCriteria(Doctor.class);
 		criteria.add(Restrictions.eq("id", doctorId));
 		return (Doctor) criteria.uniqueResult();
+	}
+
+	@Override
+	public Hospital getHospital(Integer hospitalId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(Hospital.class);
+		criteria.add(Restrictions.eq("id", hospitalId));
+		return (Hospital) criteria.uniqueResult();
+	}
+
+	@Override
+	public Integer addAnalyzes(Analyzes analizes) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.saveOrUpdate(analizes);
+		} catch (Exception ex) {
+			return -1;
+		}
+		tx.commit();
+		Serializable id = session.getIdentifier(analizes);
+		session.close();
+		return (Integer) id;
+
+	}
+
+	@Override
+	public Integer addTreatment(Treatment treatment) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.saveOrUpdate(treatment);
+		} catch (Exception ex) {
+			return -1;
+		}
+		tx.commit();
+		Serializable id = session.getIdentifier(treatment);
+		session.close();
+		return (Integer) id;
 	}
 }
