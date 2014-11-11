@@ -12,6 +12,7 @@ import com.tutorials.domain.Analyzes;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
+import com.tutorials.domain.Procedures;
 import com.tutorials.domain.Relation;
 import com.tutorials.domain.Treatment;
 
@@ -104,6 +105,11 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public Integer addTreatment(Treatment treatment) {
 		return dataDao.addTreatment(treatment);
+	}
+
+	@Override
+	public Integer addProcedures(Procedures procedure) {
+		return dataDao.addProcedures(procedure);
 	}
 
 }

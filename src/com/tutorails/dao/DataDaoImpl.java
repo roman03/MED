@@ -23,6 +23,7 @@ import com.tutorials.domain.Analyzes;
 import com.tutorials.domain.Doctor;
 import com.tutorials.domain.Hospital;
 import com.tutorials.domain.Patient;
+import com.tutorials.domain.Procedures;
 import com.tutorials.domain.Relation;
 import com.tutorials.domain.Treatment;
 
@@ -233,6 +234,21 @@ public class DataDaoImpl implements DataDao {
 		}
 		tx.commit();
 		Serializable id = session.getIdentifier(treatment);
+		session.close();
+		return (Integer) id;
+	}
+
+	@Override
+	public Integer addProcedures(Procedures procedure) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			session.saveOrUpdate(procedure);
+		} catch (Exception ex) {
+			return -1;
+		}
+		tx.commit();
+		Serializable id = session.getIdentifier(procedure);
 		session.close();
 		return (Integer) id;
 	}
